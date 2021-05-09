@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<TABLE>
+    <tr th:each="entity: ${entities}">
+        <th:block th:each="i: ${#numbers.sequence(0,entity.keys.size() - 1)}">
+            <td th:text="${entity.keys.get(i)}"/>
+        </th:block>
+
+        <th:block th:each="i: ${#numbers.sequence(0,columns - entity.keys.size())}">
+            <td th:text="${i}"/>
+        </th:block>
+
+        <td th:text="${entity.value}"/>
+        <td th:text="${entity.date}"/>
+    </tr>
+</TABLE>
+</body>
+</html>
