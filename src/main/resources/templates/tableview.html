@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
 <head>
     <title>Title</title>
+    <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
 </head>
 <body>
 <TABLE>
@@ -10,10 +11,7 @@
             <td th:text="${entity.keys.get(i)}"/>
         </th:block>
 
-        <th:block th:each="i: ${#numbers.sequence(0,columns - entity.keys.size())}">
-            <td th:text="${i}"/>
-        </th:block>
-
+        <td th:if="${columns - entity.keys.size()} != '0'" th:colspan="${columns - entity.keys.size()}"></td>
         <td th:text="${entity.value}"/>
         <td th:text="${entity.date}"/>
     </tr>

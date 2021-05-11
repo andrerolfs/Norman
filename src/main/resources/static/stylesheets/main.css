@@ -1,0 +1,11 @@
+table, th, td  {
+  border-radius: 25px;
+  background: #FFFFFF;
+  padding: 20px;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+body {
+  background: #000000;
+}
