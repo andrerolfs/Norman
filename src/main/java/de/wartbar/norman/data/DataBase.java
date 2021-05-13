@@ -24,6 +24,9 @@ public class DataBase {
         mainKeyEntityMap.values().forEach(entityList::addAll);
         return entityList;
     }
+    public static Entity get(int id) {
+        return uniqueIdEntityMap.get(id);
+    }
 
     public static int getKeyCounterAll() {
         return keyCounterAll;
