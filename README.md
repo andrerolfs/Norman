@@ -7,29 +7,29 @@
 
 Examples for single value :
 
-    KEY1 = checkWeatherJob 
-    KEY2 = 19 
-    KEY3 = Job Result
+    KEY01 = checkWeatherJob 
+    KEY02 = 19 
+    KEY03 = Job Result
     VALUE = passed
 
-    KEY1 = checkWeatherJob 
-    KEY2 = 19 
-    KEY3 = Tomorrow´s Weather
+    KEY01 = checkWeatherJob 
+    KEY02 = 19 
+    KEY03 = Tomorrow´s Weather
     VALUE = sunshine
 
-    KEY1 = computeJob 
-    KEY2 = 27
-    KEY3 = Job Result
+    KEY01 = computeJob 
+    KEY02 = 27
+    KEY03 = Job Result
     VALUE = passed
 
-    KEY1 = computeJob 
-    KEY2 = 27
-    KEY3 = Computation Result
+    KEY01 = computeJob 
+    KEY02 = 27
+    KEY03 = Computation Result
     VALUE = 528491
    
-    KEY1 = computeJob 
-    KEY2 = 28
-    KEY3 = Job State
+    KEY01 = computeJob 
+    KEY02 = 28
+    KEY03 = Job State
     VALUE = started
 
 enables you to 

@@ -10,7 +10,7 @@
         <th:block th:each="i: ${#numbers.sequence(0,entity.keys.size() - 1)}">
             <td>
                 <form action="/" method="get">
-                    <input type="hidden" id="entityId" name="entityId" th:value="${entity.id}">
+                    <input type="hidden" id="entityId" name="entityId" th:value="${entity.getId()}">
                     <input type="hidden" id="entityKey" name="entityKey" th:value="${i}">
                     <input type="submit" th:value="${entity.keys.get(i)}">
                 </form>
@@ -18,8 +18,8 @@
         </th:block>
 
         <td th:if="${columns - entity.keys.size()} != '0'" th:colspan="${columns - entity.keys.size()}"></td>
-        <td th:text="${entity.value}"/>
-        <td th:text="${entity.date}"/>
+        <td th:text="${entity.VALUE}"/>
+        <td th:text="${entity.DATE}"/>
     </tr>
 </TABLE>
 </body>

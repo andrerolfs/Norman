@@ -3,6 +3,7 @@ package de.wartbar.norman.spring.data.persistence;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Builder(toBuilder = true)
 @NoArgsConstructor
@@ -18,24 +19,24 @@ public class EntityModel {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "KEY1")
-    public String KEY1;
-    @Column(name = "KEY2")
-    public String KEY2;
-    @Column(name = "KEY3")
-    public String KEY3;
-    @Column(name = "KEY4")
-    public String KEY4;
-    @Column(name = "KEY5")
-    public String KEY5;
-    @Column(name = "KEY6")
-    public String KEY6;
-    @Column(name = "KEY7")
-    public String KEY7;
-    @Column(name = "KEY8")
-    public String KEY8;
-    @Column(name = "KEY9")
-    public String KEY9;
+    @Column(name = "KEY01")
+    public String KEY01;
+    @Column(name = "KEY02")
+    public String KEY02;
+    @Column(name = "KEY03")
+    public String KEY03;
+    @Column(name = "KEY04")
+    public String KEY04;
+    @Column(name = "KEY05")
+    public String KEY05;
+    @Column(name = "KEY06")
+    public String KEY06;
+    @Column(name = "KEY07")
+    public String KEY07;
+    @Column(name = "KEY08")
+    public String KEY08;
+    @Column(name = "KEY09")
+    public String KEY09;
     @Column(name = "KEY10")
     public String KEY10;
     @Column(name = "KEY11")
@@ -64,4 +65,7 @@ public class EntityModel {
 
     @Column(name = "DATE")
     public Date DATE;
+
+    @Transient
+    public List<String> keys;
 }

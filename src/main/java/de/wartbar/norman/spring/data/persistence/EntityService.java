@@ -3,6 +3,7 @@ package de.wartbar.norman.spring.data.persistence;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Builder(toBuilder = true)
 @NoArgsConstructor
@@ -18,5 +19,9 @@ public class EntityService {
 
     public void save(EntityModel entityModel) {
         entityRepository.save(entityModel);
+    }
+
+    public List<EntityModel> findAll() {
+        return entityRepository.findAll();
     }
 }
