@@ -1,17 +1,27 @@
-package de.wartbar.norman.data;
+package de.wartbar.norman.spring.data.persistence;
 
+import de.wartbar.norman.data.Entity;
+import de.wartbar.norman.data.Keys;
+import de.wartbar.norman.spring.data.persistence.EntityModel;
+import de.wartbar.norman.spring.data.persistence.EntityRepository;
+import de.wartbar.norman.spring.data.persistence.EntityService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 import static de.wartbar.norman.data.Constants.*;
 
 @Slf4j
+@Component
 public class DataBase {
 
     private static final Object syncObject = new Object();
     private static final Map<String, List<Entity>> mainKeyEntityMap = new HashMap<>();
-    private static final Map<Integer, Entity> uniqueIdEntityMap = new HashMap<>();
+    private static final Map<Long, Entity> uniqueIdEntityMap = new HashMap<>();
     private static Map<String, Integer> mainKeyKeyCounter = new HashMap<>();
     private static int keyCounterAll = 0;
 
@@ -24,7 +34,7 @@ public class DataBase {
         mainKeyEntityMap.values().forEach(entityList::addAll);
         return entityList;
     }
-    public static Entity get(int id) {
+    public static Entity get(Long id) {
         return uniqueIdEntityMap.get(id);
     }
 
@@ -67,6 +77,7 @@ public class DataBase {
             }
             mainKeyKeyCounter.put(mainKey, keys);
         }
+
     }
 
     public static void remove(String mainKey) {

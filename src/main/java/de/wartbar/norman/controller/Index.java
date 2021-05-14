@@ -1,7 +1,10 @@
 package de.wartbar.norman.controller;
 
-import de.wartbar.norman.data.DataBase;
+import de.wartbar.norman.spring.data.persistence.DataBase;
 import de.wartbar.norman.data.Entity;
+import de.wartbar.norman.spring.data.persistence.EntityModel;
+import de.wartbar.norman.spring.data.persistence.EntityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,12 +16,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static de.wartbar.norman.data.Constants.keyCount;
-
 @RestController
 public class Index {
 
     static boolean initialized = false;
+
+    @Autowired
+    EntityService entityService;
 
     void initialize() {
         Map<String, String> params = new HashMap<>();
@@ -83,9 +87,18 @@ public class Index {
             initialize();
         }
 
+
+        EntityModel entityModel = new EntityModel();
+        entityModel.KEY1 = "key1";
+        entityModel.KEY2 = "key2";
+        entityModel.KEY3 = "key3";
+        entityModel.VALUE = "VALUE";
+
+        entityService.save(entityModel);
+
         if (!body.isEmpty()) {
             String entityId = body.get("entityId");
-            int id = Integer.parseInt(entityId);
+            Long id = Long.parseLong(entityId);
             Entity rootEntity = DataBase.get(id);
 
             String entityKey = body.get("entityKey");
