@@ -105,6 +105,11 @@ public class DataBase {
                 if (keyValue != null)
                 {
                     entity.keys.add(keyValue);
+
+                    if (keyCounterAll < i+1) {
+                        keyCounterAll = i+1;
+                    }
+
                 } else {
                     break;
                 }
@@ -130,58 +135,5 @@ public class DataBase {
             mainKeyEntityMap.put(entity.KEY01, listForKey);
             uniqueIdEntityMap.put(entity.getId(), entity);
         }
-
-        Map<String, String> params = new HashMap<>();
-
-        params.put("KEYCOUNT", "3");
-        params.put("KEY01", "KEY 1 1");
-        params.put("KEY02", "KEY 1 2");
-        params.put("KEY03", "KEY 1 3");
-        params.put("VALUE", "value 3");
-        add(params);
-        add(params);
-        add(params);
-
-        params.put("KEYCOUNT", "5");
-        params.put("KEY01", "KEY 2 1");
-        params.put("KEY02", "KEY 2 2");
-        params.put("KEY03", "KEY 2 3");
-        params.put("KEY04", "KEY 2 4");
-        params.put("KEY05", "KEY 2 5");
-        params.put("VALUE", "value 5");
-        add(params);
-        add(params);
-
-        params.put("KEYCOUNT", "5");
-        params.put("KEY01", "KEY 1 1");
-        params.put("KEY02", "KEY 1 2");
-        params.put("KEY03", "KEY 2 3");
-        params.put("KEY04", "KEY 2 4");
-        params.put("KEY05", "KEY 2 5");
-        params.put("VALUE", "value 5.1");
-        add(params);
-
-        params.put("KEYCOUNT", "7");
-        params.put("KEY01", "KEY 3 1");
-        params.put("KEY02", "KEY 3 2");
-        params.put("KEY03", "KEY 3 3");
-        params.put("KEY04", "KEY 3 4");
-        params.put("KEY05", "KEY 3 5");
-        params.put("KEY06", "KEY 3 6");
-        params.put("KEY07", "KEY 3 7");
-        params.put("VALUE", "value 7");
-        add(params);
-        add(params);
-
-        params.put("KEYCOUNT", "7");
-        params.put("KEY01", "KEY 1 1");
-        params.put("KEY02", "KEY 1 2");
-        params.put("KEY03", "KEY 3 3");
-        params.put("KEY04", "KEY 3 4");
-        params.put("KEY05", "KEY 3 5");
-        params.put("KEY06", "KEY 3 6");
-        params.put("KEY07", "KEY 3 7");
-        params.put("VALUE", "value 7.2");
-        add(params);
     }
 }

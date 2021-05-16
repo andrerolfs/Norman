@@ -2,6 +2,7 @@ package de.wartbar.norman.controller;
 
 import de.wartbar.norman.spring.data.persistence.DataBase;
 import de.wartbar.norman.spring.data.persistence.EntityModel;
+import de.wartbar.norman.spring.data.persistence.EntityModelComparator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -85,13 +86,18 @@ public class Index {
                 }
             }
 
+            searchedEntities.sort(new EntityModelComparator());
+
             ModelAndView modelAndView = new ModelAndView("tableview");
             modelAndView.addObject("entities", searchedEntities);
             modelAndView.addObject("columns", keyCounter);
             return modelAndView;
         } else {
+            List<EntityModel> list = new ArrayList<>(db.getAll());
+            list.sort(new EntityModelComparator());
+
             ModelAndView modelAndView = new ModelAndView("tableview");
-            modelAndView.addObject("entities", db.getAll());
+            modelAndView.addObject("entities", list);
             modelAndView.addObject("columns", db.getKeyCounterAll());
             return modelAndView;
         }
