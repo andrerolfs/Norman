@@ -29,6 +29,15 @@ public class Index {
         initialized = true;
     }
 
+    @RequestMapping(value="/", method = RequestMethod.POST)
+    public void post(@RequestParam Map<String,String> body) {
+        if (!initialized) {
+            initialize();
+        }
+
+        db.add(body);
+    }
+
     @RequestMapping(value="/", method = RequestMethod.GET)
     public ModelAndView index(@RequestParam Map<String,String> body) {
         if (!initialized) {

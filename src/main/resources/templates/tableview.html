@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Title</title>
+    <title>Norman</title>
     <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
 </head>
 <body>
+<a href="http://localhost:8080/h2-console">H2-Console</a>
+<br/>
+<br/>
 <TABLE>
     <tr th:each="entity: ${entities}">
         <th:block th:each="i: ${#numbers.sequence(0,entity.keys.size() - 1)}">
