@@ -9,7 +9,7 @@
 <br/>
 <br/>
 <TABLE>
-    <tr th:each="entity: ${entities}">
+    <tr th:each="entity: ${entities}" th:style="|background-color:#${entity.getBACKGROUND_COLOR()};color:#${entity.getCOLOR()}|">
         <th:block th:each="i: ${#numbers.sequence(0,entity.keys.size() - 1)}">
             <td>
                 <form action="/" method="get">

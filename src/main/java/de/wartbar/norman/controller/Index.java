@@ -73,7 +73,8 @@ public class Index {
 
                     log.debug("access root key index : " + i);
 
-                    if (entity.keys.get(i) != rootEntity.keys.get(i)) {
+                    if (!entity.keys.get(i).equals(rootEntity.keys.get(i))) {
+                        log.debug("entity key : " + entity.keys.get(i) + " != rootEntity key : " + rootEntity.keys.get(i));
                         add = false;
                     }
                 }

@@ -41,6 +41,7 @@ public class DataBase {
     }
 
     public void add(Map<String, String> params) {
+        log.debug("add " + params.toString() );
 
         if (!params.containsKey(keyCount)) {
             log.error("these params contain no key count : " + params);
@@ -49,14 +50,16 @@ public class DataBase {
 
         int keys = Integer.parseInt(params.get(keyCount));
 
-        if (params.size() != keys + 2) {
-            log.error("these params do not match to keys + key count : " + params);
+        if (params.size() != keys + 4) {
+            log.error("these params do not match to keys + key count + background_color + color : " + params);
             return;
         }
 
         EntityModel entity = new EntityModel();
         entity.VALUE = params.get(value);
         entity.DATE = new Date();
+        entity.COLOR = params.get(color);
+        entity.BACKGROUND_COLOR = params.get(backgroundColor);
         entity.keys = new ArrayList<>();
 
         for (int i = 0; i < keys; i++) {

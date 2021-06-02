@@ -66,6 +66,12 @@ public class EntityModel {
     @Column(name = "DATE")
     public Date DATE;
 
+    @Column(name = "COLOR")
+    public String COLOR;
+
+    @Column(name = "BACKGROUND_COLOR")
+    public String BACKGROUND_COLOR;
+
     @Transient
     public List<String> keys;
 }

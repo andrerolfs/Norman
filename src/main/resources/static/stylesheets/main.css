@@ -1,6 +1,4 @@
-table, th, td  {
-  border-radius: 25px;
-  background: #FFFFFF;
+th, td  {
   padding: 20px;
   border: 1px solid black;
   border-collapse: collapse;

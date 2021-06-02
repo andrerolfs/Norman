@@ -4,11 +4,14 @@ import requests
 def main():
     argvLength = len(sys.argv)
 
-    keycount = sys.argv[argvLength-1]
+    # first parameters are keys
+    lastKeyIndex = argvLength-5
+    background_color = sys.argv[argvLength-4]
+    color = sys.argv[argvLength-3]
     value = sys.argv[argvLength-2]
-    lastKeyIndex = argvLength-3
+    keycount = sys.argv[argvLength-1]
 
-    parameterMap = {'VALUE': value, 'KEYCOUNT': keycount}
+    parameterMap = {'VALUE': value, 'KEYCOUNT': keycount, 'BACKGROUND_COLOR': background_color, 'COLOR': color}
     # range does not include last element, so +1 is needed
     for i in range(1, lastKeyIndex+1):
         number_str = str(i)
