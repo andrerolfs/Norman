@@ -62,7 +62,7 @@ public class Index {
 
         DataBundle bundle = DataPreparator.getLatestSetList(body, db);
 
-        ModelAndView modelAndView = new ModelAndView("tableview");
+        ModelAndView modelAndView = new ModelAndView("tableviewlatestset");
         modelAndView.addObject("entities", bundle.list);
         modelAndView.addObject("columns", bundle.keyCounter);
         return modelAndView;

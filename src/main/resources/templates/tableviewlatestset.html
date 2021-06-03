@@ -5,7 +5,7 @@
     <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
 </head>
 <body>
-<a href="http://localhost:8080/latestset">Latest Set</a>
+<a href="http://localhost:8080/">All Entries</a>
 <br>
 <a href="http://localhost:8080/h2-console">H2-Console</a>
 <br/>
@@ -13,13 +13,7 @@
 <TABLE>
     <tr th:each="entity: ${entities}" th:style="|background-color:#${entity.getBACKGROUND_COLOR()};color:#${entity.getCOLOR()}|">
         <th:block th:each="i: ${#numbers.sequence(0,entity.keys.size() - 1)}">
-            <td>
-                <form action="/" method="get">
-                    <input type="hidden" id="entityId" name="entityId" th:value="${entity.getId()}">
-                    <input type="hidden" id="entityKey" name="entityKey" th:value="${i}">
-                    <input type="submit" th:value="${entity.keys.get(i)}">
-                </form>
-            </td>
+            <td th:text="${entity.keys.get(i)}"/>
         </th:block>
 
         <td th:if="${columns - entity.keys.size()} != '0'" th:colspan="${columns - entity.keys.size()}"></td>
