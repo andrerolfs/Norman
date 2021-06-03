@@ -23,5 +23,5 @@ def main():
     x = requests.post(url, data=parameterMap)
     print(x.text)
 
-# call with python3 norman.py a b c v 3
+# call with python3 norman.py a b c #ffffff #000000 v 3
 main()
