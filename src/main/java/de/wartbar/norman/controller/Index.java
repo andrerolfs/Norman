@@ -67,4 +67,18 @@ public class Index {
         modelAndView.addObject("columns", bundle.keyCounter);
         return modelAndView;
     }
+
+    @RequestMapping(value="/latestsettoday", method = RequestMethod.GET)
+    public ModelAndView indexLatestSetToday(@RequestParam Map<String,String> body) {
+        if (!initialized) {
+            initialize();
+        }
+
+        DataBundle bundle = DataPreparator.getLatestSetListToday(body, db);
+
+        ModelAndView modelAndView = new ModelAndView("tableviewlatestset");
+        modelAndView.addObject("entities", bundle.list);
+        modelAndView.addObject("columns", bundle.keyCounter);
+        return modelAndView;
+    }
 }

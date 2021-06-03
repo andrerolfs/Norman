@@ -1,16 +1,22 @@
-python3 norman.py monday area1 50 70 90 D33834 ffffff value 5
-python3 norman.py monday area2 50 70 90 009140 ffffff value 5
-python3 norman.py monday area1 50 70 90 009140 ffffff value 5
-python3 norman.py monday area2 50 70 90 D33834 ffffff value 5
-python3 norman.py monday test11 test2 D33834 ffffff value 3
-python3 norman.py monday test12 test2 009140 ffffff value 3
-python3 norman.py monday test13 test2 009140 ffffff value 3
-python3 norman.py monday test14 test2 009140 ffffff value 3
-python3 norman.py monday test15 test2 D33834 ffffff value 3
-python3 norman.py monday test16 test2 D33834 ffffff value 3
-python3 norman.py monday test1 test2 009140 ffffff value 3
-python3 norman.py monday test1 test2 009140 ffffff value 3
-python3 norman.py monday test1 test2 009140 ffffff value 3
-python3 norman.py monday test1 test2 009140 ffffff value 3
-python3 norman.py monday test1 test2 009140 ffffff "x=4, y=5, z=6" 3
-python3 norman.py monday test1 test2 D33834 ffffff "current=7, max=6" 3
+python3 norman.py monday test1 current D33834 ffffff "7" 3
+python3 norman.py monday test1 max ffffff 000000 "6" 3
+python3 norman.py monday test1 min ffffff 000000 "4" 3
+python3 norman.py monday test2 current 009140 ffffff "7" 3
+python3 norman.py monday test2 max ffffff 000000 "6" 3
+python3 norman.py monday test2 min ffffff 000000 "4" 3
+python3 norman.py monday test3 current D33834 ffffff "7" 3
+python3 norman.py monday test3 max ffffff 000000 "6" 3
+python3 norman.py monday test3 min ffffff 000000 "4" 3
+python3 norman.py monday test4 current 009140 ffffff "7" 3
+python3 norman.py monday test4 max ffffff 000000 "6" 3
+python3 norman.py monday test4 min ffffff 000000 "4" 3
+python3 norman.py monday test5 current D33834 ffffff "7" 3
+python3 norman.py monday test5 max ffffff 000000 "6" 3
+python3 norman.py monday test5 min ffffff 000000 "4" 3
+python3 norman.py monday test6 current 009140 ffffff "7" 3
+python3 norman.py monday test6 max ffffff 000000 "6" 3
+python3 norman.py monday test6 min ffffff 000000 "4" 3
+
+python3 norman.py monday test7 min 4 max 6 current D33834 ffffff "7" 7
+python3 norman.py monday test8 min 4 max 9 current 009140 ffffff "8" 7
+python3 norman.py monday test9 min 4 max 6 current D33834 ffffff "9" 7

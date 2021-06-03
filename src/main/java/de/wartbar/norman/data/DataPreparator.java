@@ -3,6 +3,7 @@ package de.wartbar.norman.data;
 import de.wartbar.norman.spring.data.persistence.DataBase;
 import de.wartbar.norman.spring.data.persistence.EntityModel;
 import de.wartbar.norman.spring.data.persistence.EntityModelComparator;
+import de.wartbar.norman.util.DateTool;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -85,6 +86,22 @@ public class DataPreparator {
         for (EntityModel entity : inputBundle.list) {
             String flatKey = getFlatKey(entity);
             if (flatKeySet.add(flatKey)) {
+                outputList.add(entity);
+            }
+        }
+        DataBundle outputBundle = new DataBundle();
+        outputBundle.list = outputList;
+        outputBundle.keyCounter = inputBundle.keyCounter;
+        return outputBundle;
+    }
+
+    public static DataBundle getLatestSetListToday(Map<String,String> body, DataBase db) {
+        Date today = new Date();
+        int currentWeekDay = DateTool.getDayOfWeek(today);
+        List<EntityModel> outputList = new ArrayList<>();
+        DataBundle inputBundle = getLatestSetList(body, db);
+        for (EntityModel entity : inputBundle.list) {
+            if (DateTool.getDayOfWeek(entity.getDATE()) == currentWeekDay) {
                 outputList.add(entity);
             }
         }
