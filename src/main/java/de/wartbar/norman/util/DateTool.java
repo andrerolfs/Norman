@@ -1,13 +1,14 @@
 package de.wartbar.norman.util;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 
 public class DateTool {
 
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     /*
     format : "23 01 1997"
      */
@@ -23,9 +24,7 @@ public class DateTool {
         return daysBetween;
     }
 
-    public static int getDayOfWeek(Date date) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        return c.get(Calendar.DAY_OF_WEEK);
+    public static boolean equalsDate(Date date1, Date date2) {
+        return sdf.format(date1).equals(sdf.format(date2));
     }
 }

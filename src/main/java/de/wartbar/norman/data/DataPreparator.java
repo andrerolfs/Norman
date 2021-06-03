@@ -83,31 +83,37 @@ public class DataPreparator {
         Set<String> flatKeySet = new HashSet<>();
         List<EntityModel> outputList = new ArrayList<>();
         DataBundle inputBundle = getList(body, db);
+        DataBundle outputBundle = new DataBundle();
+        outputBundle.keyCounter = 0;
         for (EntityModel entity : inputBundle.list) {
             String flatKey = getFlatKey(entity);
             if (flatKeySet.add(flatKey)) {
                 outputList.add(entity);
+                if (entity.getKeys().size() > outputBundle.keyCounter) {
+                    outputBundle.keyCounter = entity.getKeys().size();
+                    log.debug("entity " + entity.getId() + " has " + entity.getKeys().size() + " keys");
+                }
             }
         }
-        DataBundle outputBundle = new DataBundle();
         outputBundle.list = outputList;
-        outputBundle.keyCounter = inputBundle.keyCounter;
         return outputBundle;
     }
 
     public static DataBundle getLatestSetListToday(Map<String,String> body, DataBase db) {
         Date today = new Date();
-        int currentWeekDay = DateTool.getDayOfWeek(today);
         List<EntityModel> outputList = new ArrayList<>();
         DataBundle inputBundle = getLatestSetList(body, db);
+        DataBundle outputBundle = new DataBundle();
+        outputBundle.keyCounter = 0;
         for (EntityModel entity : inputBundle.list) {
-            if (DateTool.getDayOfWeek(entity.getDATE()) == currentWeekDay) {
+            if (DateTool.equalsDate(entity.getDATE(),today)) {
                 outputList.add(entity);
+                if (entity.getKeys().size() > outputBundle.keyCounter) {
+                    outputBundle.keyCounter = entity.getKeys().size();
+                }
             }
         }
-        DataBundle outputBundle = new DataBundle();
         outputBundle.list = outputList;
-        outputBundle.keyCounter = inputBundle.keyCounter;
         return outputBundle;
     }
 }

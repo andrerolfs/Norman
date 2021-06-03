@@ -5,15 +5,42 @@
     <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
 </head>
 <body>
-<a href="http://localhost:8080/">All Entries</a>
-<br>
-<a href="http://localhost:8080/latestset">Latest Set</a>
-<br>
-<a href="http://localhost:8080/latestsettoday">Latest Set Today</a>
-<br>
-<a href="http://localhost:8080/h2-console">H2-Console</a>
-<br/>
-<br/>
+<table>
+    <tr>
+        <td>
+            <form action="/" method="get">
+                <input type="submit" value="All Entries">
+            </form>
+        </td>
+        <td>
+            <form action="/latestset" method="get">
+                <input type="submit" value="Latest Set">
+            </form>
+        </td>
+        <td>
+            <form action="/latestsettoday" method="get">
+                <input type="submit" value="Latest Set Today">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form action="/deletetoday" method="post">
+                <input type="submit" value="Delete Today">
+            </form>
+        </td>
+        <td>
+            <form action="/deleteall" method="post">
+                <input type="submit" value="Delete All">
+            </form>
+        </td>
+        <td>
+            <form action="/h2-console" method="get">
+                <input type="submit" value="H2-Console">
+            </form>
+        </td>
+    </tr>
+</table>
 <TABLE>
     <tr th:each="entity: ${entities}" th:style="|background-color:#${entity.getBACKGROUND_COLOR()};color:#${entity.getCOLOR()}|">
         <th:block th:each="i: ${#numbers.sequence(0,entity.keys.size() - 1)}">

@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -61,7 +60,6 @@ public class Index {
         }
 
         DataBundle bundle = DataPreparator.getLatestSetList(body, db);
-
         ModelAndView modelAndView = new ModelAndView("tableviewlatestset");
         modelAndView.addObject("entities", bundle.list);
         modelAndView.addObject("columns", bundle.keyCounter);
@@ -75,10 +73,21 @@ public class Index {
         }
 
         DataBundle bundle = DataPreparator.getLatestSetListToday(body, db);
-
         ModelAndView modelAndView = new ModelAndView("tableviewlatestset");
         modelAndView.addObject("entities", bundle.list);
         modelAndView.addObject("columns", bundle.keyCounter);
         return modelAndView;
+    }
+
+    @RequestMapping(value="/deletetoday", method = RequestMethod.POST)
+    public ModelAndView deleteToday() {
+        db.deleteToday();
+        return index(new HashMap<>());
+    }
+
+    @RequestMapping(value="/deleteall", method = RequestMethod.POST)
+    public ModelAndView deleteAll() {
+        db.deleteAll();
+        return index(new HashMap<>());
     }
 }

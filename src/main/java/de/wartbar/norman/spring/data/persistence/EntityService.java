@@ -20,6 +20,9 @@ public class EntityService {
     public void save(EntityModel entityModel) {
         entityRepository.save(entityModel);
     }
+    public void delete(EntityModel entityModel) {
+        entityRepository.delete(entityModel);
+    }
 
     public List<EntityModel> findAll() {
         return entityRepository.findAll();

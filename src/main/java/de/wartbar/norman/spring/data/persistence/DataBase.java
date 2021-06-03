@@ -1,6 +1,7 @@
 package de.wartbar.norman.spring.data.persistence;
 
 import de.wartbar.norman.data.Keys;
+import de.wartbar.norman.util.DateTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -94,6 +95,39 @@ public class DataBase {
             if (keyCounterAll < keys) {
                 keyCounterAll = keys;
             }
+        }
+    }
+
+    public void deleteToday() {
+        synchronized (syncObject) {
+            initialize();
+            Date today = new Date();
+            for (EntityModel entity : getAll()) {
+                if (DateTool.equalsDate(today, entity.getDATE())) {
+                    log.debug("Delete : " + entity.getId());
+                    entityService.delete(entity);
+                } else {
+                    log.debug("Keep : " + entity.getId());
+                }
+            }
+            mainKeyEntityMap.clear();
+            uniqueIdEntityMap.clear();
+            keyCounterAll = 0;
+            initialize();
+        }
+    }
+
+    public void deleteAll() {
+        synchronized (syncObject) {
+            initialize();
+            for (EntityModel entity : getAll()) {
+                entityService.delete(entity);
+            }
+
+            mainKeyEntityMap.clear();
+            uniqueIdEntityMap.clear();
+            keyCounterAll = 0;
+            initialize();
         }
     }
 
