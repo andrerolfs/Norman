@@ -1,5 +1,7 @@
 package de.wartbar.norman.controller;
 
+import de.wartbar.norman.data.DataBundle;
+import de.wartbar.norman.data.DataPreparator;
 import de.wartbar.norman.spring.data.persistence.DataBase;
 import de.wartbar.norman.spring.data.persistence.EntityModel;
 import de.wartbar.norman.spring.data.persistence.EntityModelComparator;
@@ -44,62 +46,25 @@ public class Index {
             initialize();
         }
 
-        if (!body.isEmpty()) {
-            String entityId = body.get("entityId");
-            Long id = Long.parseLong(entityId);
-            EntityModel rootEntity = db.get(id);
+        DataBundle bundle = DataPreparator.getList(body, db);
 
-            log.debug("root id        : " + id);
-            assert rootEntity != null;
-            assert rootEntity.KEY01 != null;
-            assert rootEntity.VALUE != null;
-            assert rootEntity.keys != null;
+        ModelAndView modelAndView = new ModelAndView("tableview");
+        modelAndView.addObject("entities", bundle.list);
+        modelAndView.addObject("columns", bundle.keyCounter);
+        return modelAndView;
+    }
 
-            String entityKey = body.get("entityKey");
-            int rootKeyIndex = Integer.parseInt(entityKey);
-            log.debug("root key index : " + rootKeyIndex);
-            log.debug("root key size  : " + rootEntity.keys.size());
-
-            int keyCounter = 0;
-            List<EntityModel> searchedEntities = new ArrayList<>();
-            List<EntityModel> entities = db.getAll();
-            for (EntityModel entity : entities) {
-                if (rootKeyIndex >= entity.keys.size()) {
-                    continue;
-                }
-
-                boolean add = true;
-                for (int i = 0; i <=rootKeyIndex; i++) {
-
-                    log.debug("access root key index : " + i);
-
-                    if (!entity.keys.get(i).equals(rootEntity.keys.get(i))) {
-                        log.debug("entity key : " + entity.keys.get(i) + " != rootEntity key : " + rootEntity.keys.get(i));
-                        add = false;
-                    }
-                }
-                if (add) {
-                    if (keyCounter < entity.keys.size()) {
-                        keyCounter = entity.keys.size();
-                    }
-                    searchedEntities.add(entity);
-                }
-            }
-
-            searchedEntities.sort(new EntityModelComparator());
-
-            ModelAndView modelAndView = new ModelAndView("tableview");
-            modelAndView.addObject("entities", searchedEntities);
-            modelAndView.addObject("columns", keyCounter);
-            return modelAndView;
-        } else {
-            List<EntityModel> list = new ArrayList<>(db.getAll());
-            list.sort(new EntityModelComparator());
-
-            ModelAndView modelAndView = new ModelAndView("tableview");
-            modelAndView.addObject("entities", list);
-            modelAndView.addObject("columns", db.getKeyCounterAll());
-            return modelAndView;
+    @RequestMapping(value="/latestset", method = RequestMethod.GET)
+    public ModelAndView indexLatestSet(@RequestParam Map<String,String> body) {
+        if (!initialized) {
+            initialize();
         }
+
+        DataBundle bundle = DataPreparator.getLatestSetList(body, db);
+
+        ModelAndView modelAndView = new ModelAndView("tableview");
+        modelAndView.addObject("entities", bundle.list);
+        modelAndView.addObject("columns", bundle.keyCounter);
+        return modelAndView;
     }
 }
