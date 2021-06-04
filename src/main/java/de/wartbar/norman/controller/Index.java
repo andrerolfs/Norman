@@ -3,8 +3,6 @@ package de.wartbar.norman.controller;
 import de.wartbar.norman.data.DataBundle;
 import de.wartbar.norman.data.DataPreparator;
 import de.wartbar.norman.spring.data.persistence.DataBase;
-import de.wartbar.norman.spring.data.persistence.EntityModel;
-import de.wartbar.norman.spring.data.persistence.EntityModelComparator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,6 +86,31 @@ public class Index {
     @RequestMapping(value="/deleteall", method = RequestMethod.POST)
     public ModelAndView deleteAll() {
         db.deleteAll();
+        return index(new HashMap<>());
+    }
+
+    @RequestMapping(value="/deleteselectedkeys", method = RequestMethod.POST)
+    public ModelAndView deleteSelectedKeys(@RequestParam Map<String,String> body) {
+
+        if (!initialized) {
+            initialize();
+        }
+
+        DataBundle bundle = DataPreparator.getList(body, db);
+        db.delete(bundle.list);
+
+        return index(new HashMap<>());
+    }
+
+    @RequestMapping(value="/deletethis", method = RequestMethod.POST)
+    public ModelAndView deleteThis(@RequestParam Map<String,String> body) {
+
+        if (!initialized) {
+            initialize();
+        }
+
+        db.delete(body);
+
         return index(new HashMap<>());
     }
 }

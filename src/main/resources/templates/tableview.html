@@ -50,12 +50,23 @@
                     <input type="hidden" id="entityKey" name="entityKey" th:value="${i}">
                     <input type="submit" th:value="${entity.keys.get(i)}">
                 </form>
+                <form action="/deleteselectedkeys" method="post">
+                    <input type="hidden" id="entityId" name="entityId" th:value="${entity.getId()}">
+                    <input type="hidden" id="entityKey" name="entityKey" th:value="${i}">
+                    <input type="submit" th:value="del">
+                </form>
             </td>
         </th:block>
 
         <td th:if="${columns - entity.keys.size()} != '0'" th:colspan="${columns - entity.keys.size()}"></td>
         <td th:text="${entity.VALUE}"/>
         <td th:text="${entity.DATE}"/>
+        <td>
+            <form action="/deletethis" method="post">
+                <input type="hidden" id="entityId" name="entityId" th:value="${entity.getId()}">
+                <input type="submit" value="delete this line">
+            </form>
+        </td>
     </tr>
 </TABLE>
 </body>

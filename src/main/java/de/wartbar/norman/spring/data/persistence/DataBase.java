@@ -131,6 +131,30 @@ public class DataBase {
         }
     }
 
+    public void delete(List<EntityModel> list) {
+        for (EntityModel entity : list) {
+            entityService.delete(entity);
+        }
+
+        mainKeyEntityMap.clear();
+        uniqueIdEntityMap.clear();
+        keyCounterAll = 0;
+        initialize();
+    }
+
+    public void delete(Map<String,String> body) {
+        String entityId = body.get("entityId");
+        Long id = Long.parseLong(entityId);
+        EntityModel entity = get(id);
+
+        entityService.delete(entity);
+
+        mainKeyEntityMap.clear();
+        uniqueIdEntityMap.clear();
+        keyCounterAll = 0;
+        initialize();
+    }
+
     private void initializeEntityKeysList(EntityModel entity) {
         entity.keys = new ArrayList<>();
         for (int i = 0; i < Keys.values().length; i++) {
