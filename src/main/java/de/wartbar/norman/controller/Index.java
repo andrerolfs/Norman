@@ -97,7 +97,7 @@ public class Index {
         }
 
         DataBundle bundle = DataPreparator.getList(body, db);
-        db.delete(bundle.list);
+        db.deleteList(bundle.list);
 
         return index(new HashMap<>());
     }
@@ -109,8 +109,18 @@ public class Index {
             initialize();
         }
 
-        db.delete(body);
+        db.deleteThis(body);
 
         return index(new HashMap<>());
+    }
+
+    @RequestMapping(value="/deletekeyset", method = RequestMethod.POST)
+    public void deleteKeySet(@RequestParam Map<String,String> body) {
+
+        if (!initialized) {
+            initialize();
+        }
+
+        db.deleteKeySet(body);
     }
 }

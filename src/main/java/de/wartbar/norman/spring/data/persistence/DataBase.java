@@ -131,7 +131,7 @@ public class DataBase {
         }
     }
 
-    public void delete(List<EntityModel> list) {
+    public void deleteList(List<EntityModel> list) {
         for (EntityModel entity : list) {
             entityService.delete(entity);
         }
@@ -142,12 +142,58 @@ public class DataBase {
         initialize();
     }
 
-    public void delete(Map<String,String> body) {
+    public void deleteThis(Map<String,String> body) {
         String entityId = body.get("entityId");
         Long id = Long.parseLong(entityId);
         EntityModel entity = get(id);
 
         entityService.delete(entity);
+
+        mainKeyEntityMap.clear();
+        uniqueIdEntityMap.clear();
+        keyCounterAll = 0;
+        initialize();
+    }
+
+    public void deleteKeySet(Map<String,String> body) {
+        log.debug("deleteKeySet");
+        List<String> keySet = new ArrayList<>();
+        for (int i = 1; i <= 20; i++) {
+            String key = String.format("KEY%02d", i);
+            log.debug("Check " + key);
+            String value = body.get(key);
+            if (value != null) {
+                keySet.add(value);
+                log.debug("Key : " + value);
+            } else {
+                break;
+            }
+        }
+
+        List<EntityModel> toBeDeleted = new ArrayList<>();
+
+        for (EntityModel entity : getAll()) {
+            if(entity.getKeys().size() < keySet.size()) {
+                log.debug("entity too small : " + entity.getKeys().toString());
+                continue;
+            }
+            boolean delete = true;
+            for (int i = 0; i < keySet.size(); i++) {
+                if (!keySet.get(i).equals(entity.getKeys().get(i))) {
+                    log.debug("entity not equal : " + entity.getKeys().toString());
+                    delete = false;
+                    break;
+                }
+            }
+            if (delete) {
+                toBeDeleted.add(entity);
+                log.debug("toBeDeleted : " + entity.getKeys().toString());
+            }
+        }
+
+        for (EntityModel entity : toBeDeleted) {
+            entityService.delete(entity);
+        }
 
         mainKeyEntityMap.clear();
         uniqueIdEntityMap.clear();
