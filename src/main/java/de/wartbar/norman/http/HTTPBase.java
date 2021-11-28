@@ -13,12 +13,29 @@ public class HTTPBase {
         return buildPostRequest(url, body, new HashMap<>());
     }
 
-    public static Request.Builder buildRequestBuilder(String url, Map<String, String> header) {
-        Request.Builder requestBuilder = new Request.Builder();
-        requestBuilder.url(url);
-        for (String key : header.keySet()) {
-            requestBuilder.addHeader(key, header.get(key));
+    /*
+    FYI : addQueryParameter found here :
+
+    https://www.javaguides.net/2019/05/okhttp-get-request-java-example.html
+
+    For other kind of headers use something like
+
+    Headers headerbuild = Headers.of(header);
+    Request request = new Request.Builder().url(url).headers(headerbuild).build();
+
+    found here :
+
+    https://stackoverflow.com/questions/32196424/how-to-add-headers-to-okhttp-request-interceptor
+     */
+    public static Request.Builder buildRequestBuilder(String url, Map<String, String> queryParameters) {
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        for (String key : queryParameters.keySet()) {
+            urlBuilder.addQueryParameter(key, queryParameters.get(key));
         }
+        String urlBuild = urlBuilder.build().toString();
+
+        Request.Builder requestBuilder = new Request.Builder();
+        requestBuilder.url(urlBuild);
         return requestBuilder;
     }
 
