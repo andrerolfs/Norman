@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class HTTPPostJson extends HTTPBase {
 
-    public HTTPResponse synchronous(String inputJson, String url) throws IOException {
+    public HTTPResponse synchronuos(String inputJson, String url) throws IOException {
         RequestBody body = RequestBody.create(
                 inputJson,
                 MediaType.parse("application/json; charset=utf-8")
@@ -15,7 +15,7 @@ public class HTTPPostJson extends HTTPBase {
         return executeRequest(buildPostRequest(url,body));
     }
 
-    public HTTPResponse synchronous(String inputJson, String url, Map<String, String> header) throws IOException {
+    public HTTPResponse synchronuos(String inputJson, String url, Map<String, String> header) throws IOException {
         RequestBody body = RequestBody.create(
                 inputJson,
                 MediaType.parse("application/json; charset=utf-8")

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Norman</title>
+    <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<TABLE>
+    <thead>
+    <tr style="background-color:#FFFFFF;color:#111111">
+        <th>Node</th>
+        <th>Online</th>
+        <th>Toggle</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="node : ${nodeList}" th:style="|background-color:#${node.getBACKGROUND_COLOR()};color:#${node.getCOLOR()}|">
+        <td th:text="${node.name}"></td>
+        <td th:text="${node.isOnline}"></td>
+        <td><form action="/jenkinsnodestoggleoffline" method="post">
+            <input type="hidden" id="toggleNode" name="node" th:value="${node.name}">
+            <input type="submit" th:value="toggle">
+        </form></td>
+    </tr>
+    </tbody>
+</TABLE>
+
+</body>
+
+</html>
+

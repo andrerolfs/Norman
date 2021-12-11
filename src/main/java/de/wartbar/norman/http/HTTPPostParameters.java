@@ -5,13 +5,13 @@ import java.util.Map;
 
 public class HTTPPostParameters extends HTTPBase {
 
-    public HTTPResponse synchronous(Map<String, String> parameters, String url) throws Exception {
+    public HTTPResponse synchronuos(String url, Map<String, String> queryParameters, HTTPCredentials credentials) throws Exception {
         FormBody.Builder builder = new FormBody.Builder();
-        for (String key : parameters.keySet()) {
-            builder.add(key, parameters.get(key));
+        for (String key : queryParameters.keySet()) {
+            builder.add(key, queryParameters.get(key));
         }
         RequestBody body = builder.build();
 
-        return executeRequest(buildPostRequest(url,body));
+        return executeRequest(buildPostRequest(url,body), credentials);
     }
 }
