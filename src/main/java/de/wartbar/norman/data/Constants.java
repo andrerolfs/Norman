@@ -10,7 +10,6 @@ public class Constants {
     public static final String node = "node";
     public static final String toggleOffline = "toggleOffline";
     public static final String master = "master";
-
-
-
+    public static final String offlineMessage = "offlineMessage";
+    public static final String Norman = "Norman was here";
 }

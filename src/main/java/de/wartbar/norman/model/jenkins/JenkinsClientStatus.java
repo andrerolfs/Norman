@@ -39,17 +39,9 @@ public class JenkinsClientStatus {
 
     public static void updateStatus() throws IOException {
         HTTPGet getRequest = new HTTPGet();
-
         String url = "http://localhost:8090/computer/api/json";
-        Map<String, String> queryParameters = new HashMap<>();
-        queryParameters.put("pretty", "true");
-        queryParameters.put("tree", "computer[displayName,offline]");
-
-        HTTPCredentials credentials = new HTTPCredentials();
-        credentials.username = "executor";
-        credentials.password = "117adab5d57c922170e2d68f6c3f75c91a";
-
-        HTTPResponse response = getRequest.synchronuos(url, queryParameters, credentials);
+        Map<String, String> queryParameters = HTTPQueryParameters.create().put("pretty", "true").put("tree", "computer[displayName,offline]").get();
+        HTTPResponse response = getRequest.synchronuos(url, queryParameters, JenkinsCredentials.get());
 
         JsonObject jobj = GsonWrapper.get(response.body);
         List<JsonObject> list = GsonWrapper.getAsArray(jobj,"computer");
@@ -79,19 +71,8 @@ public class JenkinsClientStatus {
         HTTPPostParameters postRequest = new HTTPPostParameters();
 
         //http://localhost:8090/computer/ClientNode/toggleOffline?offlineMessage=aReason
-        String nodeName = body.get(Constants.node);
-        if (nodeName.equals(Constants.master)) {
-            nodeName = "(" + Constants.master + ")";
-        }
-
-        String url = "http://localhost:8090/computer/" + nodeName + "/" + Constants.toggleOffline;
-        Map<String, String> queryParameters = new HashMap<>();
-
-        HTTPCredentials credentials = new HTTPCredentials();
-        credentials.username = "executor";
-        credentials.password = "117adab5d57c922170e2d68f6c3f75c91a";
-
-        HTTPResponse response = postRequest.synchronuos(url, queryParameters, credentials);
-
+        String url = "http://localhost:8090/computer/" + JenkinsComputerName.get(body) + "/" + Constants.toggleOffline;
+        Map<String, String> queryParameters = HTTPQueryParameters.create().put(Constants.offlineMessage, Constants.Norman).get();
+        HTTPResponse response = postRequest.synchronuos(url, queryParameters, JenkinsCredentials.get());
     }
 }
