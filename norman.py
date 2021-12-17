@@ -21,7 +21,11 @@ def main():
 
     url = 'http://localhost:8080/'
     x = requests.post(url, data=parameterMap)
+    print(parameterMap)
     print(x.text)
 
-# call with python3 norman.py a b c #ffffff #000000 v 3
+# call with python3 norman.py a b c ffffff 000000 v 3
 main()
+
+# plain curl example
+#curl -d "VALUE=valueOfFirStSecondThird&KEYCOUNT=3&BACKGROUND_COLOR=ff0000&COLOR=000000&KEY01=first&KEY02=second&KEY03=third" -X POST http://localhost:8080
