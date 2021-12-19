@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Norman</title>
+    <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<div th:insert="header :: header"></div>
+
+<form action="/jenkinsconfig" method="post">
+
+    <TABLE style="background-color:#FFFFFF;color:#111111">
+        <tbody>
+        <tr>
+            <td>NAME</td>
+            <td>
+                <input type="text" id="name" name="name" th:value="${config.name}">
+            </td>
+        </tr>
+        <tr>
+            <td>IP ADDRESS</td>
+            <td>
+                <input type="text" id="ipaddress" name="ipaddress" th:value="${config.ipAddress}">
+            </td>
+        </tr>
+        <tr>
+            <td>PORT</td>
+            <td>
+                <input type="text" id="port" name="port" th:value="${config.port}">
+            </td>
+        </tr>
+        <tr>
+            <td>USERNAME</td>
+            <td>
+                <input type="text" id="username" name="username" th:value="${config.username}">
+            </td>
+        </tr>
+        <tr>
+            <td>PASSWORD</td>
+            <td>
+                <input type="password" id="password" name="password" th:value="${config.password}">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="save"></td>
+        </tr>
+        </tbody>
+    </TABLE>
+
+</form>
+
+</body>
+
+</html>
+

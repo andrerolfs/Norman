@@ -1,17 +1,19 @@
 package de.wartbar.norman.model.jenkins;
 
 import de.wartbar.norman.http.HTTPCredentials;
+import de.wartbar.norman.spring.data.persistence.JenkinsConfigModel;
 
 public class JenkinsCredentials {
 
-    public static HTTPCredentials credentials = null;
+    static HTTPCredentials httpCredentials = null;
+
+    public static void update(JenkinsConfigModel jenkinsConfigModel) {
+        httpCredentials = new HTTPCredentials();
+        httpCredentials.username = jenkinsConfigModel.getUsername();
+        httpCredentials.password = jenkinsConfigModel.getPassword();
+    }
 
     public static HTTPCredentials get() {
-        if (credentials == null) {
-            credentials = new HTTPCredentials();
-            credentials.username = "executor";
-            credentials.password = "117adab5d57c922170e2d68f6c3f75c91a";
-        }
-        return credentials;
+        return httpCredentials;
     }
 }

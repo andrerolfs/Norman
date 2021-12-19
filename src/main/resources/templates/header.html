@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
+<body>
+<div th:fragment="header">
+    <h1><span th:text="${name}"/></h1>
+    <table>
+        <tr>
+            <td>
+                <form action="/" method="get">
+                    <input type="submit" value="All Entries">
+                </form>
+            </td>
+            <td>
+                <form action="/latestset" method="get">
+                    <input type="submit" value="Latest Set">
+                </form>
+            </td>
+            <td>
+                <form action="/latestsettoday" method="get">
+                    <input type="submit" value="Latest Set Today">
+                </form>
+            </td>
+            <td>
+                <form action="/jenkinsnodes" method="get">
+                    <input type="submit" value="Jenkins Nodes">
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form action="/deletetoday" method="post">
+                    <input type="submit" value="Delete Today">
+                </form>
+            </td>
+            <td>
+                <form action="/deleteall" method="post">
+                    <input type="submit" value="Delete All">
+                </form>
+            </td>
+            <td>
+                <form action="/h2-console" method="get">
+                    <input type="submit" value="H2-Console">
+                </form>
+            </td>
+            <td>
+                <form action="/jenkinsconfig" method="get">
+                    <input type="submit" value="Jenkins Config">
+                </form>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

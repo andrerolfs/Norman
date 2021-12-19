@@ -1,5 +1,6 @@
 package de.wartbar.norman.spring.data.persistence;
 
+import de.wartbar.norman.data.Constants;
 import de.wartbar.norman.data.Keys;
 import de.wartbar.norman.util.DateTool;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,9 @@ public class DataBase {
 
     @Autowired
     private EntityService entityService;
+
+    @Autowired
+    private JenkinsConfigService jenkinsConfigService;
 
     public Map<String, List<EntityModel>> get() {
         return mainKeyEntityMap;
@@ -242,5 +246,28 @@ public class DataBase {
             mainKeyEntityMap.put(entity.KEY01, listForKey);
             uniqueIdEntityMap.put(entity.getId(), entity);
         }
+    }
+
+    public JenkinsConfigModel getJenkinsConfigModel() {
+        List<JenkinsConfigModel> list = jenkinsConfigService.findAll();
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        return list.get(0);
+    }
+
+    public void saveJenkinsConfigModel(Map<String,String> body) {
+        JenkinsConfigModel model = getJenkinsConfigModel();
+        if (model == null) {
+            model = new JenkinsConfigModel();
+        }
+
+        model.name = body.get(name);
+        model.ipAddress = body.get(ipaddress);
+        model.port = body.get(port);
+        model.username = body.get(username);
+        model.password = body.get(password);
+        jenkinsConfigService.save(model);
     }
 }

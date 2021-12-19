@@ -7,6 +7,8 @@
 
 <body>
 
+<div th:insert="header :: header"></div>
+
 <TABLE>
     <thead>
     <tr style="background-color:#FFFFFF;color:#111111">
@@ -19,7 +21,7 @@
     <tr th:each="node : ${nodeList}" th:style="|background-color:#${node.getBACKGROUND_COLOR()};color:#${node.getCOLOR()}|">
         <td th:text="${node.name}"></td>
         <td th:text="${node.isOnline}"></td>
-        <td><form action="/jenkinsnodestoggleoffline" method="post">
+        <td><form action="/jenkinsnodes" method="post">
             <input type="hidden" id="toggleNode" name="node" th:value="${node.name}">
             <input type="submit" th:value="toggle">
         </form></td>

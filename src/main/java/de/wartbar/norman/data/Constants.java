@@ -12,4 +12,9 @@ public class Constants {
     public static final String master = "master";
     public static final String offlineMessage = "offlineMessage";
     public static final String Norman = "Norman was here";
+    public static final String ipaddress = "ipaddress";
+    public static final String port = "port";
+    public static final String username = "username";
+    public static final String password = "password";
+    public static final String name = "name";
 }

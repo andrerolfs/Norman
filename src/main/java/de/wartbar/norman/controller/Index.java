@@ -2,6 +2,7 @@ package de.wartbar.norman.controller;
 
 import de.wartbar.norman.data.DataBundle;
 import de.wartbar.norman.data.DataPreparator;
+import de.wartbar.norman.data.WebDefaults;
 import de.wartbar.norman.spring.data.persistence.DataBase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class Index {
 
         DataBundle bundle = DataPreparator.getList(body, db);
 
-        ModelAndView modelAndView = new ModelAndView("tableview");
+        ModelAndView modelAndView = WebDefaults.createModelAndView(db, "tableview");
         modelAndView.addObject("entities", bundle.list);
         modelAndView.addObject("columns", bundle.keyCounter);
         return modelAndView;
@@ -58,7 +59,7 @@ public class Index {
         }
 
         DataBundle bundle = DataPreparator.getLatestSetList(body, db);
-        ModelAndView modelAndView = new ModelAndView("tableviewlatestset");
+        ModelAndView modelAndView = WebDefaults.createModelAndView(db, "tableviewlatestset");
         modelAndView.addObject("entities", bundle.list);
         modelAndView.addObject("columns", bundle.keyCounter);
         return modelAndView;
@@ -71,7 +72,7 @@ public class Index {
         }
 
         DataBundle bundle = DataPreparator.getLatestSetListToday(body, db);
-        ModelAndView modelAndView = new ModelAndView("tableviewlatestset");
+        ModelAndView modelAndView = WebDefaults.createModelAndView(db, "tableviewlatestset");
         modelAndView.addObject("entities", bundle.list);
         modelAndView.addObject("columns", bundle.keyCounter);
         return modelAndView;
@@ -123,4 +124,5 @@ public class Index {
 
         db.deleteKeySet(body);
     }
+
 }

@@ -3,6 +3,12 @@ table {
     margin-right: auto;
 }
 
+h1, h2, h3, h4, h5 {
+    background: gray;
+    color: #000000;
+    text-align: center;
+}
+
 th, td  {
   padding: 2px;
   border: 1px solid black;
@@ -11,4 +17,5 @@ th, td  {
 
 body {
   background: #000000;
+  color: #FFFFFF;
 }
