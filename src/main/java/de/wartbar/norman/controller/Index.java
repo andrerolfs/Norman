@@ -4,8 +4,12 @@ import de.wartbar.norman.data.DataBundle;
 import de.wartbar.norman.data.DataPreparator;
 import de.wartbar.norman.data.WebDefaults;
 import de.wartbar.norman.spring.data.persistence.DataBase;
+import de.wartbar.norman.spring.data.persistence.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +42,7 @@ public class Index {
         db.add(body);
     }
 
+
     @RequestMapping(value="/", method = RequestMethod.GET)
     public ModelAndView index(@RequestParam Map<String,String> body) {
         if (!initialized) {
@@ -49,6 +54,7 @@ public class Index {
         ModelAndView modelAndView = WebDefaults.createModelAndView(db, "tableview");
         modelAndView.addObject("entities", bundle.list);
         modelAndView.addObject("columns", bundle.keyCounter);
+
         return modelAndView;
     }
 

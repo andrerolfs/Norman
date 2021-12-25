@@ -25,6 +25,11 @@
                     <input type="submit" value="Jenkins Nodes">
                 </form>
             </td>
+            <td>
+                <form action="/registration" method="get">
+                    <input type="submit" value="Norman Registration">
+                </form>
+            </td>
         </tr>
         <tr>
             <td>
@@ -45,6 +50,11 @@
             <td>
                 <form action="/jenkinsconfig" method="get">
                     <input type="submit" value="Jenkins Config">
+                </form>
+            </td>
+            <td>
+                <form action="/login" method="get">
+                    <input type="submit" th:value="'Logout ' + ${username}">
                 </form>
             </td>
         </tr>
