@@ -1,5 +1,6 @@
 package de.wartbar.norman.controller;
 
+import de.wartbar.norman.data.WebDefaults;
 import de.wartbar.norman.spring.data.persistence.SecurityService;
 import de.wartbar.norman.spring.data.persistence.User;
 import de.wartbar.norman.spring.data.persistence.UserService;
@@ -61,8 +62,10 @@ public class UserController {
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
 
-        if (logout != null)
+        if (logout != null) {
             model.addAttribute("message", "You have been logged out successfully.");
+            WebDefaults.logout();
+        }
 
         return "login";
     }

@@ -53,8 +53,10 @@
                 </form>
             </td>
             <td>
+
                 <form action="/login" method="get">
                     <input type="submit" th:value="'Logout ' + ${username}">
+                    <input type="hidden" id="logout" name="logout">
                 </form>
             </td>
         </tr>
