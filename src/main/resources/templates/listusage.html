@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Norman</title>
+    <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<div th:insert="header :: header"></div>
+
+<table>
+    <tr>
+        <th colspan="3" th:text="${listName}"></th>
+    </tr>
+    <tr>
+        <td>
+            <form action="/createitem" method="get">
+                <input type="submit" value="Create Item">
+                <input type="hidden" name="ITEM_CREATE" th:value="${listName}">
+                <input type="hidden" name="LIST_ID" th:value="${listId}">
+            </form>
+        </td>
+        <td>
+            <form action="/additem" method="get">
+                <input type="submit" value="Add Item">
+                <input type="hidden" name="ITEM_ADD" th:value="${listName}">
+            </form>
+        </td>
+        <td>
+            <form action="/listconfig" method="get">
+                <input type="submit" value="Configure List">
+                <input type="hidden" name="LIST_CONFIG" th:value="${listName}">
+            </form>
+        </td>
+    </tr>
+</table>
+
+<TABLE>
+    <tbody>
+    <tr th:each="item : ${items}" th:style="|background-color:#${item.getBACKGROUND_COLOR()};color:#${item.getCOLOR()}|">
+        <td th:text="${item.name}"></td>
+        <td>
+            <form action="/itemremove" method="get">
+                <input type="submit" value="remove">
+                <input type="hidden" name="ITEM_REMOVE" th:value="${item.id}">
+            </form>
+            <form action="/itemedit" method="get">
+                <input type="submit" value="edit">
+                <input type="hidden" name="ITEM_EDIT" th:value="${item.id}">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</TABLE>
+
+</body>
+
+</html>
+

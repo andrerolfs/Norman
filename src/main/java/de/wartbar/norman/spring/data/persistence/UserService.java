@@ -1,7 +1,10 @@
 package de.wartbar.norman.spring.data.persistence;
 
-public interface UserService {
-    void save(User user);
+import java.util.List;
 
-    User findByUsername(String username);
+public interface UserService {
+    void save(UserModel userModel);
+
+    UserModel findByUsername(String username);
+    List<UserModel> findAll();
 }

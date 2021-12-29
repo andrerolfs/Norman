@@ -1,6 +1,7 @@
 package de.wartbar.norman.data;
 
 import de.wartbar.norman.spring.data.persistence.DataBase;
+import de.wartbar.norman.spring.data.persistence.JenkinsConfigModel;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,7 +17,12 @@ public class WebDefaults {
     public static ModelAndView createModelAndView( DataBase db, String viewName) {
 
         if (name == null) {
-            name = db.getJenkinsConfigModel().getName();
+            JenkinsConfigModel jcm = db.getJenkinsConfigModel();
+            if (jcm == null) {
+                name = Constants.Norman;
+            } else {
+                name = jcm.getName();
+            }
         }
 
         ModelAndView modelAndView = new ModelAndView(viewName);

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Norman</title>
+    <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<div th:insert="header :: header"></div>
+
+<TABLE>
+    <thead>
+    <tr style="background-color:#FFFFFF;color:#111111">
+        <th>List</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="list : ${lists}" th:style="|background-color:#${list.getBACKGROUND_COLOR()};color:#${list.getCOLOR()}|">
+        <td>
+            <form action="/listusage" method="get">
+                <input type="submit" th:value="${list.name}">
+                <input type="hidden" name="LIST_ID" th:value="${list.id}">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</TABLE>
+
+</body>
+
+</html>
+

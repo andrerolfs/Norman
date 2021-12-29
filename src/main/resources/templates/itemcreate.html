@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Norman</title>
+    <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<div th:insert="header :: header"></div>
+
+<form action="/createitem" method="post">
+
+    <TABLE style="background-color:#FFFFFF;color:#111111">
+        <tbody>
+        <tr>
+            <td>ITEM NAME</td>
+            <td>
+                <input type="text" id="ITEM_NAME" name="ITEM_NAME">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="save"></td>
+            <input type="hidden" name="LIST_ID" th:value="${listId}">
+        </tr>
+        </tbody>
+    </TABLE>
+
+</form>
+
+<TABLE>
+    <tbody>
+    <tr th:each="item : ${items}" th:style="|background-color:#${item.getBACKGROUND_COLOR()};color:#${item.getCOLOR()}|">
+        <td th:text="${item.name}"></td>
+        <td>
+            <form action="/itemremove" method="get">
+                <input type="submit" value="remove">
+                <input type="hidden" name="ITEM_REMOVE" th:value="${item.id}">
+            </form>
+            <form action="/itemedit" method="get">
+                <input type="submit" value="edit">
+                <input type="hidden" name="ITEM_EDIT" th:value="${item.id}">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</TABLE>
+
+</body>
+
+</html>
+

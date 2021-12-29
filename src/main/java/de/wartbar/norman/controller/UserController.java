@@ -2,7 +2,7 @@ package de.wartbar.norman.controller;
 
 import de.wartbar.norman.data.WebDefaults;
 import de.wartbar.norman.spring.data.persistence.SecurityService;
-import de.wartbar.norman.spring.data.persistence.User;
+import de.wartbar.norman.spring.data.persistence.UserModel;
 import de.wartbar.norman.spring.data.persistence.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,22 +31,22 @@ public class UserController {
         }
         */
 
-        model.addAttribute("userForm", new User());
+        model.addAttribute("userModelForm", new UserModel());
 
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
-        userValidator.validate(userForm, bindingResult);
+    public String registration(@ModelAttribute("userModelForm") UserModel userModelForm, BindingResult bindingResult) {
+        userValidator.validate(userModelForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
 
-        userService.save(userForm);
+        userService.save(userModelForm);
 
-        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+        securityService.autoLogin(userModelForm.getUsername(), userModelForm.getPasswordConfirm());
 
         return "redirect:/";
     }
