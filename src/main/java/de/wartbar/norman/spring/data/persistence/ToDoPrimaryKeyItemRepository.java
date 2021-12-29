@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 @Transactional
 public interface ToDoPrimaryKeyItemRepository extends JpaRepository<ToDoPrimaryKeyItemModel, Long> {
+    List<ToDoPrimaryKeyItemModel> findByUserId(Long userId);
 }

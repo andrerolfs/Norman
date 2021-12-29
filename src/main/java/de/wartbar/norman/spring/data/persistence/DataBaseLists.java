@@ -115,4 +115,20 @@ public class DataBaseLists {
         listItemService.deleteById(listItemId);
     }
 
+    public List<ToDoPrimaryKeyItemModel> getItems() {
+        Long userId = dataBaseUser.findByUserName().getId();
+        return itemService.findByUserId(userId);
+    }
+
+    public ToDoForeignKeyListItemModel addItem(Map<String,String> body) {
+        Long listId = Long.parseLong(body.get(Constants.listId));
+        Long itemId = Long.parseLong(body.get(Constants.itemId));
+
+        ToDoForeignKeyListItemModel listItemModel = new ToDoForeignKeyListItemModel();
+        listItemModel.setListId(listId);
+        listItemModel.setItemId(itemId);
+        listItemService.save(listItemModel);
+        return listItemModel;
+    }
+
 }

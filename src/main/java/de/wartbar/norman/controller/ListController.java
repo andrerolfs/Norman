@@ -101,4 +101,20 @@ public class ListController {
         return getListUsage(body);
     }
 
+    @RequestMapping(value="/additem", method = RequestMethod.GET)
+    public ModelAndView getAddItem(@RequestParam Map<String,String> body) throws Exception {
+        log.info("getAddItem :" + body.toString());
+        ModelAndView modelAndView = WebDefaults.createModelAndView(db, "itemadd");
+        modelAndView.addObject("listId", body.get(Constants.listId));
+        modelAndView.addObject("items", dataBaseLists.getItems());
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/additem", method = RequestMethod.POST)
+    public ModelAndView postAddItem(@RequestParam Map<String,String> body) throws Exception {
+        log.info("postAddItem :" + body.toString());
+        dataBaseLists.addItem(body);
+        return getListUsage(body);
+    }
+
 }

@@ -28,5 +28,10 @@ public class ToDoPrimaryKeyItemService {
     public Optional<ToDoPrimaryKeyItemModel> findById(Long itemId) {
         return todoprimarykeyitemRepository.findById(itemId);
     }
+    public List<ToDoPrimaryKeyItemModel> findByUserId(Long userId) {
+        return todoprimarykeyitemRepository.findByUserId(userId);
+    }
+
+
 
 }

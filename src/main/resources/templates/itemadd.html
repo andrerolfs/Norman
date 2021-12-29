@@ -9,7 +9,7 @@
 
 <div th:insert="header :: header"></div>
 
-<form action="/createitem" method="post">
+<form action="/additem" method="post">
 
     <TABLE style="background-color:#FFFFFF;color:#111111">
         <tbody>
@@ -33,13 +33,10 @@
     <tr th:each="item : ${items}" th:style="|background-color:#${item.getBACKGROUND_COLOR()};color:#${item.getCOLOR()}|">
         <td th:text="${item.name}"></td>
         <td>
-            <form action="/removeitem" method="post">
-                <input type="submit" value="remove">
+            <form action="/additem" method="post">
+                <input type="submit" value="add">
                 <input type="hidden" name="ITEM_ID" th:value="${item.id}">
-            </form>
-            <form action="/edititem" method="get">
-                <input type="submit" value="edit">
-                <input type="hidden" name="ITEM_ID" th:value="${item.id}">
+                <input type="hidden" name="LIST_ID" th:value="${listId}">
             </form>
         </td>
     </tr>
