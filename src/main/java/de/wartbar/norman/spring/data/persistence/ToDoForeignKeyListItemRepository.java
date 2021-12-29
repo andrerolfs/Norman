@@ -10,5 +10,5 @@ import java.util.List;
 @Transactional
 public interface ToDoForeignKeyListItemRepository extends JpaRepository<ToDoForeignKeyListItemModel, Long> {
 
-    public List<ToDoForeignKeyListItemModel> findByListId(Long listId);
+    List<ToDoForeignKeyListItemModel> findByListId(Long listId);
 }

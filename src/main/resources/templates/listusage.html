@@ -41,9 +41,10 @@
     <tr th:each="item : ${items}" th:style="|background-color:#${item.getBACKGROUND_COLOR()};color:#${item.getCOLOR()}|">
         <td th:text="${item.name}"></td>
         <td>
-            <form action="/removeitem" method="get">
+            <form action="/removeitem" method="post">
                 <input type="submit" value="remove">
-                <input type="hidden" name="ITEM_ID" th:value="${item.id}">
+                <input type="hidden" name="LIST_ITEM_ID" th:value="${item.listItemId}">
+                <input type="hidden" name="LIST_ID" th:value="${listId}">
             </form>
             <form action="/edititem" method="get">
                 <input type="submit" value="edit">

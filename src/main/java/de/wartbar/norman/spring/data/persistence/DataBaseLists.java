@@ -1,7 +1,6 @@
 package de.wartbar.norman.spring.data.persistence;
 
 import de.wartbar.norman.data.Constants;
-import de.wartbar.norman.data.WebDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -66,7 +65,9 @@ public class DataBaseLists {
         List<ToDoForeignKeyListItemModel> listItems = listItemService.findByListId(listModel.get().getId());
         List<ToDoPrimaryKeyItemModel> items = new ArrayList<>();
         for (ToDoForeignKeyListItemModel listItemModel : listItems) {
-            items.add(itemService.findById(listItemModel.getItemId()).get());
+            ToDoPrimaryKeyItemModel itemModel = itemService.findById(listItemModel.getItemId()).get();
+            itemModel.setListItemId(listItemModel.getId());
+            items.add(itemModel);
         }
         return items;
     }
@@ -107,6 +108,11 @@ public class DataBaseLists {
         itemModel.setName(itemName);
         itemService.save(itemModel);
         return itemModel;
+    }
+
+    public void deleteListItem(Map<String,String> body) {
+        Long listItemId = Long.parseLong(body.get(Constants.listItemId));
+        listItemService.deleteById(listItemId);
     }
 
 }

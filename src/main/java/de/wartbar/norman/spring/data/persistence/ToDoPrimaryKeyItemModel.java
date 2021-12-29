@@ -25,4 +25,7 @@ public class ToDoPrimaryKeyItemModel extends ModelDefaults {
     @Column(name = "USER_ID")
     private Long userId;
 
+    @Transient
+    private Long listItemId;
+
 }

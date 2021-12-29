@@ -94,4 +94,11 @@ public class ListController {
         modelAndView.addObject("listId", body.get(Constants.listId));
         return modelAndView;
     }
+
+    @RequestMapping(value="/removeitem", method = RequestMethod.POST)
+    public ModelAndView postRemoveItem(@RequestParam Map<String,String> body) throws Exception {
+        dataBaseLists.deleteListItem(body);
+        return getListUsage(body);
+    }
+
 }

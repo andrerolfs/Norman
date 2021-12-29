@@ -28,4 +28,8 @@ public class ToDoForeignKeyListItemService {
         return todoforeignkeylistitemRepository.findByListId(listId);
     }
 
+    public void deleteById(Long id) {
+        todoforeignkeylistitemRepository.deleteById(id);
+    }
+
 }
