@@ -17,20 +17,20 @@
         <td>
             <form action="/createitem" method="get">
                 <input type="submit" value="Create Item">
-                <input type="hidden" name="ITEM_CREATE" th:value="${listName}">
+                <input type="hidden" name="LIST_NAME" th:value="${listName}">
                 <input type="hidden" name="LIST_ID" th:value="${listId}">
             </form>
         </td>
         <td>
             <form action="/additem" method="get">
                 <input type="submit" value="Add Item">
-                <input type="hidden" name="ITEM_ADD" th:value="${listName}">
+                <input type="hidden" name="LIST_NAME" th:value="${listName}">
             </form>
         </td>
         <td>
             <form action="/listconfig" method="get">
                 <input type="submit" value="Configure List">
-                <input type="hidden" name="LIST_CONFIG" th:value="${listName}">
+                <input type="hidden" name="LIST_NAME" th:value="${listName}">
             </form>
         </td>
     </tr>
@@ -41,13 +41,16 @@
     <tr th:each="item : ${items}" th:style="|background-color:#${item.getBACKGROUND_COLOR()};color:#${item.getCOLOR()}|">
         <td th:text="${item.name}"></td>
         <td>
-            <form action="/itemremove" method="get">
+            <form action="/removeitem" method="get">
                 <input type="submit" value="remove">
-                <input type="hidden" name="ITEM_REMOVE" th:value="${item.id}">
+                <input type="hidden" name="ITEM_ID" th:value="${item.id}">
             </form>
-            <form action="/itemedit" method="get">
+            <form action="/edititem" method="get">
                 <input type="submit" value="edit">
-                <input type="hidden" name="ITEM_EDIT" th:value="${item.id}">
+                <input type="hidden" name="ITEM_ID" th:value="${item.id}">
+                <input type="hidden" name="ITEM_NAME" th:value="${item.name}">
+                <input type="hidden" name="LIST_NAME" th:value="${listName}">
+                <input type="hidden" name="LIST_ID" th:value="${listId}">
             </form>
         </td>
     </tr>

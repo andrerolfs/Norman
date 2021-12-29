@@ -77,4 +77,22 @@ public class ListController {
         modelAndView.addObject("listId", listId);
         return modelAndView;
     }
+
+
+    @RequestMapping(value="/edititem", method = RequestMethod.POST)
+    public ModelAndView postEditItem(@RequestParam Map<String,String> body) throws Exception {
+        log.info("postEditItem :" + body.toString());
+        dataBaseLists.editItem(body);
+        return getListUsage(body);
+    }
+
+    @RequestMapping(value="/edititem", method = RequestMethod.GET)
+    public ModelAndView getEditItem(@RequestParam Map<String,String> body) throws Exception {
+        log.info("getEditItem :" + body.toString());
+        ModelAndView modelAndView = WebDefaults.createModelAndView(db, "itemedit");
+        modelAndView.addObject("itemName", body.get(Constants.itemName));
+        modelAndView.addObject("itemId", body.get(Constants.itemId));
+        modelAndView.addObject("listId", body.get(Constants.listId));
+        return modelAndView;
+    }
 }

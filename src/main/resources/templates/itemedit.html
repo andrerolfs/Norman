@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Norman</title>
+    <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<div th:insert="header :: header"></div>
+
+<form action="/edititem" method="post">
+
+    <TABLE style="background-color:#FFFFFF;color:#111111">
+        <tbody>
+        <tr>
+            <td>ITEM NAME</td>
+            <td>
+                <input type="text" id="ITEM_NAME" name="ITEM_NAME" th:value="${itemName}">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="save"></td>
+            <input type="hidden" name="LIST_ID" th:value="${listId}">
+            <input type="hidden" name="ITEM_ID" th:value="${itemId}">
+        </tr>
+        </tbody>
+    </TABLE>
+
+</form>
+
+</body>
+
+</html>
+

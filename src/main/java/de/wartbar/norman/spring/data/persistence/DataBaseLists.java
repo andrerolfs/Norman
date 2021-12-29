@@ -95,4 +95,13 @@ public class DataBaseLists {
         return itemModel;
     }
 
+    public ToDoPrimaryKeyItemModel editItem(Map<String,String> body) {
+        Long itemId = Long.parseLong(body.get(Constants.itemId));
+        ToDoPrimaryKeyItemModel itemModel = itemService.findById(itemId).get();
+        String itemName = body.get(Constants.itemName);
+        itemModel.setName(itemName);
+        itemService.save(itemModel);
+        return itemModel;
+    }
+
 }
