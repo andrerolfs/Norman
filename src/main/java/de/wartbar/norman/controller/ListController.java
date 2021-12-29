@@ -78,7 +78,6 @@ public class ListController {
         return modelAndView;
     }
 
-
     @RequestMapping(value="/edititem", method = RequestMethod.POST)
     public ModelAndView postEditItem(@RequestParam Map<String,String> body) throws Exception {
         log.info("postEditItem :" + body.toString());

@@ -77,16 +77,21 @@ public class DataBaseLists {
 
         Long listId = Long.parseLong(body.get(Constants.listId));
 
+        ToDoPrimaryKeyItemModel itemModel = null;
+
         for (ToDoPrimaryKeyItemModel current : itemService.findAll()) {
             if (current.getName().toUpperCase().equals(itemNameUp)) {
-                return current;
+                itemModel = current;
+                break;
             }
         }
 
-        ToDoPrimaryKeyItemModel itemModel = new ToDoPrimaryKeyItemModel();
-        itemModel.setName(itemName);
-        itemModel.setUserId(dataBaseUser.findByUserName().getId());
-        itemService.save(itemModel);
+        if (itemModel == null) {
+            itemModel = new ToDoPrimaryKeyItemModel();
+            itemModel.setName(itemName);
+            itemModel.setUserId(dataBaseUser.findByUserName().getId());
+            itemService.save(itemModel);
+        }
 
         ToDoForeignKeyListItemModel listItemModel = new ToDoForeignKeyListItemModel();
         listItemModel.setItemId(itemModel.getId());
