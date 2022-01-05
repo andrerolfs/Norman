@@ -19,7 +19,11 @@
             <input type="text" id="ITEM_NAME" name="ITEM_NAME" onkeyup="searchFunction('myTable')" placeholder="type here ...">
         </td>
         <td>
-            <input type="submit" value="save">
+            <input type="submit" name="LIST_OPERATION" value="save">
+            <input type="hidden" name="LIST_ID" th:value="${listId}">
+        </td>
+        <td>
+            <input type="submit" name="LIST_OPERATION" value="cancel">
             <input type="hidden" name="LIST_ID" th:value="${listId}">
         </td>
     </tr>

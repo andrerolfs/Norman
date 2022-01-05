@@ -82,6 +82,19 @@ public class DataBaseLists {
 
     public ToDoPrimaryKeyItemModel saveItem(Map<String,String> body) {
         String itemName = body.get(Constants.itemName);
+
+        if (body.get(Constants.listOperation).equals(Constants.cancel)) {
+            return null;
+        }
+
+        if (itemName == null) {
+            return null;
+        }
+
+        if (itemName.isEmpty()) {
+            return null;
+        }
+
         String itemNameUp = itemName.toUpperCase();
 
         Long listId = Long.parseLong(body.get(Constants.listId));

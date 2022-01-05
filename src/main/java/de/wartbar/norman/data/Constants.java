@@ -24,4 +24,8 @@ public class Constants {
     public static final String itemId = "ITEM_ID";
     public static final String invitedUserName = "INVITED_USER_NAME";
     public static final String invitationId = "INVITATION_ID";
+    public static final String listOperation = "LIST_OPERATION";
+    public static final String save = "save";
+    public static final String cancel = "cancel";
+
 }
