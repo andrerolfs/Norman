@@ -69,8 +69,13 @@ public class DataBaseLists {
         List<ToDoPrimaryKeyItemModel> items = new ArrayList<>();
         for (ToDoForeignKeyListItemModel listItemModel : listItems) {
             ToDoPrimaryKeyItemModel itemModel = itemService.findById(listItemModel.getItemId()).get();
-            itemModel.setListItemId(listItemModel.getId());
-            items.add(itemModel);
+            ToDoPrimaryKeyItemModel tempItemModel =
+                    new ToDoPrimaryKeyItemModel(
+                            itemModel.getId(),
+                            itemModel.getName(),
+                            itemModel.getUserId(),
+                            listItemModel.getId());
+            items.add(tempItemModel);
         }
         return items;
     }
