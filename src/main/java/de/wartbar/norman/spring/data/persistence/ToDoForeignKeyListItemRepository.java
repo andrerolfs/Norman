@@ -11,4 +11,6 @@ import java.util.List;
 public interface ToDoForeignKeyListItemRepository extends JpaRepository<ToDoForeignKeyListItemModel, Long> {
 
     List<ToDoForeignKeyListItemModel> findByListId(Long listId);
+
+    List<ToDoForeignKeyListItemModel> findByListIdAndItemId(Long listId, Long itemId);
 }

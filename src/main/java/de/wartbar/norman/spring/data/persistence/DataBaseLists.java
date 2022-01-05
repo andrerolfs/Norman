@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static de.wartbar.norman.data.Constants.listId;
+
 @Slf4j
 @Component
 public class DataBaseLists {
@@ -98,10 +100,15 @@ public class DataBaseLists {
         String itemNameUp = itemName.toUpperCase();
 
         Long listId = Long.parseLong(body.get(Constants.listId));
+        Long userId = dataBaseUser.findByUserName().getId();
 
         ToDoPrimaryKeyItemModel itemModel = null;
 
         for (ToDoPrimaryKeyItemModel current : itemService.findAll()) {
+            if (!current.getUserId().equals(userId)) {
+                continue;
+            }
+
             if (current.getName().toUpperCase().equals(itemNameUp)) {
                 itemModel = current;
                 break;
@@ -123,11 +130,30 @@ public class DataBaseLists {
     }
 
     public ToDoPrimaryKeyItemModel editItem(Map<String,String> body) {
+        Long userId = dataBaseUser.findByUserName().getId();
+        String itemName = body.get(Constants.itemName);
+
         Long itemId = Long.parseLong(body.get(Constants.itemId));
         ToDoPrimaryKeyItemModel itemModel = itemService.findById(itemId).get();
-        String itemName = body.get(Constants.itemName);
-        itemModel.setName(itemName);
-        itemService.save(itemModel);
+
+        if (itemModel.getUserId().equals(userId)) {
+            itemModel.setName(itemName);
+            itemService.save(itemModel);
+        } else {
+            itemModel = new ToDoPrimaryKeyItemModel();
+            Long listId = Long.parseLong(body.get(Constants.listId));
+
+            itemModel.setName(itemName);
+            itemModel.setUserId(userId);
+            itemService.save(itemModel);
+
+            List<ToDoForeignKeyListItemModel> listItemModels = listItemService.findByListIdAndItemId(listId, itemId);
+            for (ToDoForeignKeyListItemModel listItemModel : listItemModels) {
+                listItemModel.setItemId(itemModel.getId());
+                listItemService.save(listItemModel);
+            }
+        }
+
         return itemModel;
     }
 
