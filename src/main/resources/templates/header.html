@@ -4,6 +4,32 @@
 <div th:fragment="header">
     <h1><span th:text="${name}"/></h1>
     <table>
+
+        <tr>
+            <td>
+                <form action="/registration" method="get">
+                    <input type="submit" value="Norman Registration">
+                </form>
+            </td>
+            <td>
+                <form action="/jenkinsconfig" method="get">
+                    <input type="submit" value="Jenkins Config">
+                </form>
+            </td>
+            <td>
+                <form action="/h2-console" method="get">
+                    <input type="submit" value="H2-Console">
+                </form>
+            </td>
+            <td>
+            </td>
+            <td>
+                <form action="/login" method="get">
+                    <input type="submit" th:value="'Logout ' + ${username}">
+                    <input type="hidden" id="logout" name="logout">
+                </form>
+            </td>
+        </tr>
         <tr>
             <td>
                 <form action="/" method="get">
@@ -21,17 +47,31 @@
                 </form>
             </td>
             <td>
+                <form action="/deletetoday" method="post">
+                    <input type="submit" value="Delete Today">
+                </form>
+            </td>
+            <td>
+                <form action="/deleteall" method="post">
+                    <input type="submit" value="Delete All">
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <form action="/jenkinsnodes" method="get">
                     <input type="submit" value="Jenkins Nodes">
                 </form>
             </td>
             <td>
-                <form action="/registration" method="get">
-                    <input type="submit" value="Norman Registration">
-                </form>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
             </td>
         </tr>
-
         <tr>
             <td>
                 <form action="/lists" method="get">
@@ -51,36 +91,6 @@
             <td>
             </td>
             <td>
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <form action="/deletetoday" method="post">
-                    <input type="submit" value="Delete Today">
-                </form>
-            </td>
-            <td>
-                <form action="/deleteall" method="post">
-                    <input type="submit" value="Delete All">
-                </form>
-            </td>
-            <td>
-                <form action="/h2-console" method="get">
-                    <input type="submit" value="H2-Console">
-                </form>
-            </td>
-            <td>
-                <form action="/jenkinsconfig" method="get">
-                    <input type="submit" value="Jenkins Config">
-                </form>
-            </td>
-            <td>
-
-                <form action="/login" method="get">
-                    <input type="submit" th:value="'Logout ' + ${username}">
-                    <input type="hidden" id="logout" name="logout">
-                </form>
             </td>
         </tr>
     </table>

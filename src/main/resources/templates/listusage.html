@@ -21,9 +21,15 @@
             </form>
         </td>
         <td>
-            <form action="/listconfig" method="get">
-                <input type="submit" value="Configure List">
-                <input type="hidden" name="LIST_NAME" th:value="${listName}">
+            <form action="/clonelist" method="get">
+                <input type="submit" value="Clone List">
+                <input type="hidden" name="LIST_ID" th:value="${listId}">
+            </form>
+        </td>
+        <td>
+            <form action="/leavelist" method="post">
+                <input type="submit" value="Leave List">
+                <input type="hidden" name="LIST_ID" th:value="${listId}">
             </form>
         </td>
     </tr>

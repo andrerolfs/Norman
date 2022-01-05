@@ -27,4 +27,6 @@ public class ToDoForeignKeyUserListService {
     public List<ToDoForeignKeyUserListModel> findAll() {
         return todoforeignkeyuserlistRepository.findAll();
     }
+
+    public void deleteById(Long id) { todoforeignkeyuserlistRepository.deleteById(id);}
 }

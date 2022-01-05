@@ -217,4 +217,41 @@ public class DataBaseLists {
         listInvitationService.deleteById(Long.parseLong(body.get(Constants.invitationId)));
     }
 
+    public void leaveList(Map<String,String> body) {
+
+        Long listId = Long.parseLong(body.get(Constants.listId));
+        Long userId = dataBaseUser.findByUserName().getId();
+
+        List<ToDoForeignKeyUserListModel> userListModels = userListService.findByUserId(userId);
+
+        for (ToDoForeignKeyUserListModel userListModel : userListModels) {
+            if (userListModel.getListId().equals(listId)) {
+                userListService.deleteById(userListModel.getId());
+                return;
+            }
+        }
+    }
+
+    public void cloneList(Map<String,String> body) {
+        Long listId = Long.parseLong(body.get(Constants.listId));
+        Long userId = dataBaseUser.findByUserName().getId();
+
+        ToDoPrimaryKeyListModel listModel = new ToDoPrimaryKeyListModel();
+        listModel.setName(body.get(Constants.listName));
+        listService.save(listModel);
+
+        ToDoForeignKeyUserListModel userListModel = new ToDoForeignKeyUserListModel();
+        userListModel.setListId(listModel.getId());
+        userListModel.setUserId(userId);
+        userListService.save(userListModel);
+
+        List<ToDoForeignKeyListItemModel> listItemModels = listItemService.findByListId(listId);
+        for (ToDoForeignKeyListItemModel listItemModel : listItemModels) {
+            ToDoForeignKeyListItemModel newListItemModel = new ToDoForeignKeyListItemModel();
+            newListItemModel.setListId(listModel.getId());
+            newListItemModel.setItemId(listItemModel.getItemId());
+            listItemService.save(newListItemModel);
+        }
+    }
+
 }

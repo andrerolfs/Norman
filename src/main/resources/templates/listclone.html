@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Norman</title>
+    <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<div th:insert="header :: header"></div>
+
+<form action="/clonelist" method="post">
+
+    <TABLE style="background-color:#FFFFFF;color:#111111">
+        <tbody>
+        <tr>
+            <td>LIST NAME</td>
+            <td>
+                <input type="text" id="LIST_NAME" name="LIST_NAME">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="clone">
+                <input type="hidden" name="LIST_ID" th:value="${listId}">
+            </td>
+        </tr>
+        </tbody>
+    </TABLE>
+
+</form>
+
+</body>
+
+</html>
+

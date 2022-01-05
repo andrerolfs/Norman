@@ -2,7 +2,6 @@ package de.wartbar.norman.controller;
 
 import de.wartbar.norman.data.Constants;
 import de.wartbar.norman.data.WebDefaults;
-import de.wartbar.norman.model.jenkins.JenkinsClientStatus;
 import de.wartbar.norman.spring.data.persistence.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -161,5 +160,27 @@ public class ListController {
         log.info("postAcceptInvitation :" + body.toString());
         dataBaseLists.acceptInvitation(body);
         return getInvitations(body);
+    }
+
+    @RequestMapping(value="/leavelist", method = RequestMethod.POST)
+    public ModelAndView postLeaveList(@RequestParam Map<String,String> body) throws Exception {
+        log.info("postLeaveList :" + body.toString());
+        dataBaseLists.leaveList(body);
+        return getLists();
+    }
+
+    @RequestMapping(value="/clonelist", method = RequestMethod.POST)
+    public ModelAndView postCloneList(@RequestParam Map<String,String> body) throws Exception {
+        log.info("postCloneList :" + body.toString());
+        dataBaseLists.cloneList(body);
+        return getLists();
+    }
+
+    @RequestMapping(value="/clonelist", method = RequestMethod.GET)
+    public ModelAndView getCloneList(@RequestParam Map<String,String> body) throws Exception {
+        log.info("getCloneList :" + body.toString());
+        ModelAndView modelAndView = WebDefaults.createModelAndView(db, "listclone");
+        modelAndView.addObject("listId", body.get(Constants.listId));
+        return modelAndView;
     }
 }
