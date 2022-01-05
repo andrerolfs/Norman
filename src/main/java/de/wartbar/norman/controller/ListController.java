@@ -25,6 +25,9 @@ public class ListController {
     DataBaseLists dataBaseLists;
 
     @Autowired
+    DataBaseUser dataBaseUser;
+
+    @Autowired
     DataBase db;
 
     @RequestMapping(value="/createlist", method = RequestMethod.POST)
@@ -117,4 +120,46 @@ public class ListController {
         return getListUsage(body);
     }
 
+    @RequestMapping(value="/invitelist", method = RequestMethod.POST)
+    public ModelAndView postInviteList(@RequestParam Map<String,String> body) throws Exception {
+        log.info("postInviteList :" + body.toString());
+        dataBaseLists.invite(body);
+        return getInviteList(body);
+    }
+
+    @RequestMapping(value="/invitelist", method = RequestMethod.GET)
+    public ModelAndView getInviteList(@RequestParam Map<String,String> body) throws Exception {
+        log.info("getInviteList :" + body.toString());
+        Long listId = Long.parseLong(body.get(Constants.listId));
+        List<ToDoForeignKeyListInvitationModel> invitationModels = dataBaseLists.getInvitations();
+        ModelAndView modelAndView = WebDefaults.createModelAndView(db, "listinvite");
+        modelAndView.addObject("userId", dataBaseUser.findByUserName().getId());
+        modelAndView.addObject("listId", listId);
+        modelAndView.addObject("invitations", invitationModels);
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/invitations", method = RequestMethod.GET)
+    public ModelAndView getInvitations(@RequestParam Map<String,String> body) throws Exception {
+        log.info("getInvitations :" + body.toString());
+        List<ToDoForeignKeyListInvitationModel> invitationModels = dataBaseLists.getInvitations();
+        ModelAndView modelAndView = WebDefaults.createModelAndView(db, "listinvited");
+        modelAndView.addObject("userId", dataBaseUser.findByUserName().getId());
+        modelAndView.addObject("invitations", invitationModels);
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/deleteinvitation", method = RequestMethod.POST)
+    public ModelAndView postDeleteInvitation(@RequestParam Map<String,String> body) throws Exception {
+        log.info("postDeleteInvitation :" + body.toString());
+        dataBaseLists.deleteInvitation(body);
+        return getInvitations(body);
+    }
+
+    @RequestMapping(value="/acceptinvitation", method = RequestMethod.POST)
+    public ModelAndView postAcceptInvitation(@RequestParam Map<String,String> body) throws Exception {
+        log.info("postAcceptInvitation :" + body.toString());
+        dataBaseLists.acceptInvitation(body);
+        return getInvitations(body);
+    }
 }

@@ -12,7 +12,8 @@
 <TABLE>
     <thead>
     <tr style="background-color:#FFFFFF;color:#111111">
-        <th>List</th>
+        <th>List Name</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -23,6 +24,13 @@
                 <input type="hidden" name="LIST_ID" th:value="${list.id}">
             </form>
         </td>
+        <td>
+            <form action="/invitelist" method="get">
+                <input type="submit" value="Invite To List">
+                <input type="hidden" name="LIST_ID" th:value="${list.id}">
+            </form>
+        </td>
+
     </tr>
     </tbody>
 </TABLE>

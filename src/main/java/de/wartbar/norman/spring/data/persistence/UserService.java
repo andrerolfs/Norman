@@ -6,5 +6,8 @@ public interface UserService {
     void save(UserModel userModel);
 
     UserModel findByUsername(String username);
+
+    UserModel findById(Long userId);
+
     List<UserModel> findAll();
 }

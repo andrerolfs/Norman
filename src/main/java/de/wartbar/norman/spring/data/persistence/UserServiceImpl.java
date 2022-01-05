@@ -9,10 +9,13 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private RoleRepository roleRepository;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -26,6 +29,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserModel findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public UserModel findById(Long id) {
+        return userRepository.findById(id).get();
     }
 
     public List<UserModel> findAll() { return userRepository.findAll(); }

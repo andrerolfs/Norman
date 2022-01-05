@@ -29,6 +29,9 @@ public class DataBaseLists {
     @Autowired
     ToDoForeignKeyListItemService listItemService;
 
+    @Autowired
+    ToDoForeignKeyListInvitationService listInvitationService;
+
     public Long getUserId() {
         return dataBaseUser.findByUserName().getId();
     }
@@ -129,6 +132,71 @@ public class DataBaseLists {
         listItemModel.setItemId(itemId);
         listItemService.save(listItemModel);
         return listItemModel;
+    }
+
+    public ToDoForeignKeyListInvitationModel invite(Map<String,String> body) {
+        Long offeringUserId = dataBaseUser.findByUserName().getId();
+
+        String invitedUserName = body.get(Constants.invitedUserName);
+        UserModel invitedUserModel = dataBaseUser.findByUserName(invitedUserName);
+
+        Long listId = Long.parseLong(body.get(Constants.listId));
+
+        ToDoForeignKeyListInvitationModel listInvitationModel = null;
+
+        for (ToDoForeignKeyListInvitationModel current : listInvitationService.findAll()) {
+            if (!current.getOfferingUserId().equals(offeringUserId)) {
+                continue;
+            }
+
+            if (!current.getListId().equals(listId)) {
+                continue;
+            }
+
+            if (!current.getInvitedUserId().equals(invitedUserModel.getId())) {
+                continue;
+            }
+
+            return current;
+        }
+
+        if (listInvitationModel == null) {
+            listInvitationModel = new ToDoForeignKeyListInvitationModel();
+            listInvitationModel.setListId(listId);
+            listInvitationModel.setInvitedUserId(invitedUserModel.getId());
+            listInvitationModel.setOfferingUserId(offeringUserId);
+            listInvitationService.save(listInvitationModel);
+        }
+
+        return listInvitationModel;
+    }
+
+    public List<ToDoForeignKeyListInvitationModel> getInvitations() {
+        Long userId = dataBaseUser.findByUserName().getId();
+        List<ToDoForeignKeyListInvitationModel> invitationModels = listInvitationService.findAll();
+        for (ToDoForeignKeyListInvitationModel invitationModel : invitationModels) {
+            if (invitationModel.getInvitedUserId().equals(userId) || invitationModel.getOfferingUserId().equals(userId)) {
+                invitationModel.setInvitedUserName(dataBaseUser.findByUserId(invitationModel.getInvitedUserId()).getUsername());
+                invitationModel.setOfferingUserName(dataBaseUser.findByUserId(invitationModel.getOfferingUserId()).getUsername());
+                invitationModel.setListName(listService.findById(invitationModel.getListId()).get().getName());
+            }
+        }
+        return invitationModels;
+    }
+
+    public void deleteInvitation(Map<String,String> body) {
+        listInvitationService.deleteById(Long.parseLong(body.get(Constants.invitationId)));
+    }
+
+    public void acceptInvitation(Map<String,String> body) {
+        ToDoForeignKeyListInvitationModel invitationModel = listInvitationService.findById(Long.parseLong(body.get(Constants.invitationId))).get();
+
+        ToDoForeignKeyUserListModel userListModel = new ToDoForeignKeyUserListModel();
+        userListModel.setListId(invitationModel.getListId());
+        userListModel.setUserId(invitationModel.getInvitedUserId());
+        userListService.save(userListModel);
+
+        listInvitationService.deleteById(Long.parseLong(body.get(Constants.invitationId)));
     }
 
 }

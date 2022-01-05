@@ -22,6 +22,10 @@ public class DataBaseUser {
         return userService.findByUsername(name);
     }
 
+    public UserModel findByUserId(Long id) {
+        return userService.findById(id);
+    }
+
     public UserModel findByUserName() {
         return userService.findByUsername(WebDefaults.getUsername());
     }

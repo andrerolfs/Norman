@@ -8,8 +8,8 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface ToDoPrimaryKeyListRepository extends JpaRepository<ToDoPrimaryKeyListModel, Long> {
+public interface ToDoForeignKeyListInvitationRepository  extends JpaRepository<ToDoForeignKeyListInvitationModel, Long> {
 
-    List<ToDoPrimaryKeyListModel> findByIdIn(List<Long> userIdList);
+    List<ToDoForeignKeyListInvitationModel> findByOfferingUserId(Long offeringUserId);
 
 }

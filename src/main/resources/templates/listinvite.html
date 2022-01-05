@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Norman</title>
+    <link th:href="@{/stylesheets/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<div th:insert="header :: header"></div>
+
+<form action="/invitelist" method="post">
+
+    <TABLE style="background-color:#FFFFFF;color:#111111">
+        <tbody>
+        <tr>
+            <td>INVITE USER</td>
+            <td>
+                <input type="text" id="INVITED_USER_NAME" name="INVITED_USER_NAME">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="invite"></td>
+            <input type="hidden" name="LIST_ID" th:value="${listId}">
+        </tr>
+        </tbody>
+    </TABLE>
+
+</form>
+
+<div th:insert="invitations :: invitations"></div>
+
+</body>
+
+</html>
+

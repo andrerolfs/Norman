@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:i="http://www.w3.org/1999/xhtml">
+<body>
+<div th:fragment="invitations">
+
+    <TABLE>
+        <thead>
+        <tr>
+            <th>List Name</th>
+            <th>Invited User</th>
+            <th>Invited By User</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="invitation : ${invitations}" th:style="|background-color:#${invitation.getBACKGROUND_COLOR()};color:#${invitation.getCOLOR()}|">
+            <td th:text="${invitation.getListName()}"></td>
+            <td th:text="${invitation.getInvitedUserName()}"></td>
+            <td th:text="${invitation.getOfferingUserName()}"></td>
+            <td>
+                <div th:if="${userId} == ${invitation.invitedUserId}">
+                    <form action="/acceptinvitation" method="post">
+                        <input type="submit" value="accept">
+                        <input type="hidden" name="INVITATION_ID" th:value="${invitation.id}">
+                    </form>
+                </div>
+
+                <div th:if="${userId} == ${invitation.offeringUserId}">
+                    <form action="/deleteinvitation" method="post">
+                        <input type="submit" value="delete">
+                        <input type="hidden" name="INVITATION_ID" th:value="${invitation.id}">
+                    </form>
+                </div>
+
+                <div th:if="${userId} == ${invitation.invitedUserId}">
+                    <form action="/deleteinvitation" method="post">
+                        <input type="submit" value="deny">
+                        <input type="hidden" name="INVITATION_ID" th:value="${invitation.id}">
+                    </form>
+                </div>
+
+            </td>
+        </tr>
+        </tbody>
+    </TABLE>
+
+</div>
+</body>
+</html>
