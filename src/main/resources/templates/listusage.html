@@ -15,13 +15,6 @@
     </tr>
     <tr>
         <td>
-            <form action="/createitem" method="get">
-                <input type="submit" value="Create Item">
-                <input type="hidden" name="LIST_NAME" th:value="${listName}">
-                <input type="hidden" name="LIST_ID" th:value="${listId}">
-            </form>
-        </td>
-        <td>
             <form action="/additem" method="get">
                 <input type="submit" value="Add Item">
                 <input type="hidden" name="LIST_ID" th:value="${listId}">

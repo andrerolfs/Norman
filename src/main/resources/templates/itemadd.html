@@ -9,26 +9,46 @@
 
 <div th:insert="header :: header"></div>
 
-<form action="/additem" method="post">
-
-    <TABLE style="background-color:#FFFFFF;color:#111111">
-        <tbody>
-        <tr>
-            <td>ITEM NAME</td>
-            <td>
-                <input type="text" id="ITEM_NAME" name="ITEM_NAME">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="save"></td>
+<form action="/createitem" method="post">
+<TABLE id="searchTable">
+    <tr>
+        <td>
+            Search/Create
+        </td>
+        <td>
+            <input type="text" id="ITEM_NAME" name="ITEM_NAME" onkeyup="searchFunction('myTable')" placeholder="type here ...">
+        </td>
+        <td>
+            <input type="submit" value="save">
             <input type="hidden" name="LIST_ID" th:value="${listId}">
-        </tr>
-        </tbody>
-    </TABLE>
-
+        </td>
+    </tr>
+</TABLE>
 </form>
 
-<TABLE>
+<script>
+function searchFunction(tableName) {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("ITEM_NAME");
+  filter = input.value.toUpperCase();
+  table = document.getElementById(tableName);
+  tr = table.getElementsByTagName("tr");
+
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+<TABLE id="myTable">
     <tbody>
     <tr th:each="item : ${items}" th:style="|background-color:#${item.getBACKGROUND_COLOR()};color:#${item.getCOLOR()}|">
         <td th:text="${item.name}"></td>
