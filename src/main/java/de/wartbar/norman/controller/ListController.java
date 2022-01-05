@@ -183,4 +183,11 @@ public class ListController {
         modelAndView.addObject("listId", body.get(Constants.listId));
         return modelAndView;
     }
+
+    @RequestMapping(value="/cloneitems", method = RequestMethod.POST)
+    public ModelAndView postCloneItems(@RequestParam Map<String,String> body) throws Exception {
+        log.info("postCloneItems :" + body.toString());
+        dataBaseLists.cloneItems(body);
+        return getListUsage(body);
+    }
 }

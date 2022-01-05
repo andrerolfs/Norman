@@ -290,4 +290,14 @@ public class DataBaseLists {
         }
     }
 
+    public void cloneItems(Map<String,String> body) {
+        Long listId = Long.parseLong(body.get(Constants.listId));
+        Long userId = dataBaseUser.findByUserName().getId();
+
+        List<ToDoForeignKeyListItemModel> listItemModels = listItemService.findByListId(listId);
+        for (ToDoForeignKeyListItemModel listItemModel : listItemModels) {
+            ToDoPrimaryKeyItemModel itemModel = itemService.findById(listItemModel.getItemId()).get();
+            cloneItem(itemModel,userId);
+        }
+    }
 }
