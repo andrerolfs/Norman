@@ -28,8 +28,13 @@ public class ToDoPrimaryKeyItemService {
     public Optional<ToDoPrimaryKeyItemModel> findById(Long itemId) {
         return todoprimarykeyitemRepository.findById(itemId);
     }
+
     public List<ToDoPrimaryKeyItemModel> findByUserId(Long userId) {
         return todoprimarykeyitemRepository.findByUserId(userId);
+    }
+
+    public List<ToDoPrimaryKeyItemModel> findByUserIdAndName(Long userId, String name) {
+        return todoprimarykeyitemRepository.findByUserIdAndName(userId, name);
     }
 
 

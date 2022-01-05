@@ -23,6 +23,9 @@ public class ToDoForeignKeyUserListService {
     public List<ToDoForeignKeyUserListModel> findByUserId(Long userId) {
         return todoforeignkeyuserlistRepository.findByUserId(userId);
     }
+    public List<ToDoForeignKeyUserListModel> findByListId(Long listId) {
+        return todoforeignkeyuserlistRepository.findByListId(listId);
+    }
 
     public List<ToDoForeignKeyUserListModel> findAll() {
         return todoforeignkeyuserlistRepository.findAll();

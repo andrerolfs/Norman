@@ -217,6 +217,12 @@ public class DataBaseLists {
         listInvitationService.deleteById(Long.parseLong(body.get(Constants.invitationId)));
     }
 
+    /*
+
+    * when a user leaves a list, the user-list entry is deletd
+    * when the last user leaves a list, all list-item entries are deleted
+
+     */
     public void leaveList(Map<String,String> body) {
 
         Long listId = Long.parseLong(body.get(Constants.listId));
@@ -227,9 +233,38 @@ public class DataBaseLists {
         for (ToDoForeignKeyUserListModel userListModel : userListModels) {
             if (userListModel.getListId().equals(listId)) {
                 userListService.deleteById(userListModel.getId());
-                return;
+                break;
             }
         }
+
+        userListModels = userListService.findByListId(listId);
+
+        if (!userListModels.isEmpty()) {
+            return;
+        }
+
+        List<ToDoForeignKeyListItemModel> listItemModels = listItemService.findByListId(listId);
+        for (ToDoForeignKeyListItemModel listItemModel : listItemModels) {
+            listItemService.deleteById(listItemModel.getId());
+        }
+    }
+
+    public ToDoPrimaryKeyItemModel cloneItem(ToDoPrimaryKeyItemModel itemModel, Long userId) {
+        if (itemModel.getUserId().equals(userId)) {
+            return itemModel;
+        }
+
+        List<ToDoPrimaryKeyItemModel> itemModels = itemService.findByUserIdAndName(userId, itemModel.getName());
+
+        if (itemModels.isEmpty()) {
+            ToDoPrimaryKeyItemModel newItemModel = new ToDoPrimaryKeyItemModel();
+            newItemModel.setName(itemModel.getName());
+            newItemModel.setUserId(userId);
+            itemService.save(newItemModel);
+            return newItemModel;
+        }
+
+        return itemModels.get(0);
     }
 
     public void cloneList(Map<String,String> body) {
@@ -247,9 +282,10 @@ public class DataBaseLists {
 
         List<ToDoForeignKeyListItemModel> listItemModels = listItemService.findByListId(listId);
         for (ToDoForeignKeyListItemModel listItemModel : listItemModels) {
+            ToDoPrimaryKeyItemModel itemModel = itemService.findById(listItemModel.getItemId()).get();
             ToDoForeignKeyListItemModel newListItemModel = new ToDoForeignKeyListItemModel();
             newListItemModel.setListId(listModel.getId());
-            newListItemModel.setItemId(listItemModel.getItemId());
+            newListItemModel.setItemId(cloneItem(itemModel,userId).getId());
             listItemService.save(newListItemModel);
         }
     }
